@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <script src="../../common/jquery-2.0.3.min.js"></script>
+        <script src="../../common/context-path-helper.js"></script>
+        <link rel="stylesheet" href="../../common/bootstrap.min.css">
+
+        <link rel="stylesheet" href="signup.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>NinaRow</title>
 
@@ -15,7 +20,7 @@
         <div class="mainDiv">
             <span class="welcomeSpan">Welcome to NinaRow!</span>
             <br>
-            <form action="login">
+            <form action="/NinaRow/pages/signup/login">
                 <div>
                     <span>Enter your username:</span>
                     <input name="userNameInput" type="text" class="UserNameInput">
@@ -23,7 +28,7 @@
                 <br>
                 <div>
                     <span>Are You Human?</span>
-                    <input name="humanCheckBox" type="checkbox" class="HumanCheckBox">
+                    <input name="humanCheckBox" type="checkbox" class="HumanCheckBox" value="humanCheckBox">
                 </div>
                 <input type="submit" value="Login">
             </form>

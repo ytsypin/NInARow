@@ -4,6 +4,8 @@ import chat.constants.Constants;
 import chat.utils.SessionUtils;
 import chat.utils.ServletUtils;
 import engine.users.UserManager;
+import general.Participant;
+
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,9 +21,9 @@ public class LoginServlet extends HttpServlet {
     // you can use absolute paths, but then you need to build them from scratch, starting from the context path
     // ( can be fetched from request.getContextPath() ) and then the 'absolute' path from it.
     // Each method with it's pros and cons...
-    private final String WAITING_ROOM_URL = "../waitingroom/waitingroom.html";
-    private final String SIGN_UP_URL = "../signup/singup.html";
-    private final String LOGIN_ERROR_URL = "/pages/loginerror/login_attempt_after_error.jsp";  // must start with '/' since will be used in request dispatcher...
+    private final String WAITING_ROOM_URL = "/NinaRow/pages/waitingroom/waitingroom.html";
+    private final String SIGN_UP_URL = "/NinaRow/pages/signup/singup.html";
+    private final String LOGIN_ERROR_URL = "/NinaRow/pages/loginerror/login_attempt_after_error.jsp";  // must start with '/' since will be used in request dispatcher...
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -35,7 +37,6 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String usernameFromSession = SessionUtils.getUsername(request);
-       // boolean isHuman = (boolean)request.getAttribute("isHuman");
 
         UserManager userManager = ServletUtils.getUserManager(getServletContext());
 
@@ -53,6 +54,10 @@ public class LoginServlet extends HttpServlet {
                 //normalize the username value
                 usernameFromParameter = usernameFromParameter.trim();
 
+                boolean isHuman = request.getAttribute("isHuman") != null;
+
+                Participant newPlayer = new Participant(usernameFromSession, isHuman);
+
                 /*
                 One can ask why not enclose all the synchronizations inside the userManager object ?
                 Well, the atomic question we need to perform here includes both the question (isUserExists) and (potentially) the insertion
@@ -67,6 +72,7 @@ public class LoginServlet extends HttpServlet {
                  */
                 synchronized (this) {
                     if (userManager.isUserExists(usernameFromParameter)) {
+                        // TODO: same user can login several times
                         String errorMessage = "Username " + usernameFromParameter + " already exists. Please enter a different username.";
                         // username already exists, forward the request back to index.jsp
                         // with a parameter that indicates that an error should be displayed
@@ -79,6 +85,10 @@ public class LoginServlet extends HttpServlet {
                     } else {
                         //add the new user to the users list
                         userManager.addUser(usernameFromParameter);
+
+                        // TODO: replace with userManager.addUser(newPlayer);
+
+
                         //set the username in a session so it will be available on each request
                         //the true parameter means that if a session object does not exists yet
                         //create a new one
