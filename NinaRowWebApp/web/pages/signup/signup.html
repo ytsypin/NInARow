@@ -12,15 +12,20 @@
         <!-- and\or any other scripts you might need to operate the JSP file behind the scene once it arrives to the client-->
     </head>
     <body>
-        <div class="container">
-            <h1>Welcome to NinaRow!</h1>
-            <br/>
-            <h2>Please enter your username:</h2>
-            <h5>For new users, enter your desired username,</h5>
-            <h5>For returning users, enter your username.</h5>
-            <form method="GET" action="login">
-                <input type="text" name="username" class=""/>
-                <input type="submit" value="Login"/>
+        <div class="mainDiv">
+            <span class="welcomeSpan">Welcome to NinaRow!</span>
+            <br>
+            <form action="login">
+                <div>
+                    <span>Enter your username:</span>
+                    <input name="userNameInput" type="text" class="UserNameInput">
+                </div>
+                <br>
+                <div>
+                    <span>Are You Human?</span>
+                    <input name="humanCheckBox" type="checkbox" class="HumanCheckBox">
+                </div>
+                <input type="submit" value="Login">
             </form>
         </div>
     </body>
