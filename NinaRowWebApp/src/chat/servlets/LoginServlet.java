@@ -47,10 +47,10 @@ public class LoginServlet extends HttpServlet {
             if (usernameFromParameter == null) {
                 System.out.println("redirect");
                 log("redirect");
-                // TODO: show error - no username entered
                 //no username in session and no username in parameter -
                 //redirect back to the index page
                 //this return an HTTP code back to the browser telling it to load
+
                 response.sendRedirect(SIGN_UP_URL);
             } else {
                 //normalize the username value
@@ -58,9 +58,7 @@ public class LoginServlet extends HttpServlet {
 
                 boolean isHuman = request.getParameter("isHuman") != null;
 
-                Participant newPlayer = new Participant(usernameFromSession, isHuman);
-
-                System.out.println(usernameFromParameter + " " + isHuman);
+                Participant newPlayer = new Participant(usernameFromParameter, isHuman);
 
                 /*
                 One can ask why not enclose all the synchronizations inside the userManager object ?
@@ -75,8 +73,8 @@ public class LoginServlet extends HttpServlet {
                 do here other not related actions (such as request dispatcher\redirection etc. this is shown here in that manner just to stress this issue
                  */
                 synchronized (this) {
+/*                  Same user can log in several times, this is unnecessary - for now.
                     if (userManager.isUserExists(usernameFromParameter)) {
-                        // TODO: same user can login several times
                         String errorMessage = "Username " + usernameFromParameter + " already exists. Please enter a different username.";
                         // username already exists, forward the request back to index.jsp
                         // with a parameter that indicates that an error should be displayed
@@ -87,11 +85,11 @@ public class LoginServlet extends HttpServlet {
                         request.setAttribute(Constants.USER_NAME_ERROR, errorMessage);
                         getServletContext().getRequestDispatcher(LOGIN_ERROR_URL).forward(request, response);
                     } else {
+*/
+
+
                         //add the new user to the users list
-                        //userManager.addUser(usernameFromParameter);
-
                         userManager.addUser(newPlayer);
-
 
                         //set the username in a session so it will be available on each request
                         //the true parameter means that if a session object does not exists yet
@@ -101,7 +99,8 @@ public class LoginServlet extends HttpServlet {
                         //redirect the request to the chat room - in order to actually change the URL
                         System.out.println("On login, request URI is: " + request.getRequestURI());
                         response.sendRedirect(WAITING_ROOM_URL);
-                    }
+
+                 //   }
                 }
             }
         } else {
