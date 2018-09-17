@@ -8,4 +8,9 @@ public class Participant {
         this.name = name;
         this.isHuman = isHuman;
     }
+
+    @Override
+    public String toString() {
+        return name + isHuman;
+    }
 }

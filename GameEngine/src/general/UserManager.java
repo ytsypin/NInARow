@@ -12,6 +12,8 @@ public class UserManager {
     }
 
     public synchronized void addUser(Participant user) {
+
+        System.out.println("Adding user " + user);
         usersMap.put(user.name, user);
         usersSet.add(user.name);
     }

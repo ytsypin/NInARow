@@ -20,15 +20,15 @@
         <div class="mainDiv">
             <span class="welcomeSpan">Welcome to NinaRow!</span>
             <br>
-            <form action="/NinaRow/pages/signup/login">
+            <form mtehod="GET" action="/NinaRow/pages/signup/login">
                 <div>
                     <span>Enter your username:</span>
-                    <input name="userNameInput" type="text" class="UserNameInput">
+                    <input type="text" name="username">
                 </div>
                 <br>
                 <div>
                     <span>Are You Human?</span>
-                    <input name="humanCheckBox" type="checkbox" class="HumanCheckBox" value="humanCheckBox">
+                    <input name="isHuman" type="checkbox">
                 </div>
                 <input type="submit" value="Login">
             </form>

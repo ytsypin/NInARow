@@ -3,8 +3,9 @@ package chat.servlets;
 import chat.constants.Constants;
 import chat.utils.SessionUtils;
 import chat.utils.ServletUtils;
-import engine.users.UserManager;
+//import engine.users.UserManager;
 import general.Participant;
+import general.UserManager;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -22,7 +23,7 @@ public class LoginServlet extends HttpServlet {
     // ( can be fetched from request.getContextPath() ) and then the 'absolute' path from it.
     // Each method with it's pros and cons...
     private final String WAITING_ROOM_URL = "/NinaRow/pages/waitingroom/waitingroom.html";
-    private final String SIGN_UP_URL = "/NinaRow/pages/signup/singup.html";
+    private final String SIGN_UP_URL = "/NinaRow/pages/signup/signup.html";
     private final String LOGIN_ERROR_URL = "/NinaRow/pages/loginerror/login_attempt_after_error.jsp";  // must start with '/' since will be used in request dispatcher...
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,6 +45,7 @@ public class LoginServlet extends HttpServlet {
             //user is not logged in yet
             String usernameFromParameter = request.getParameter(USERNAME);
             if (usernameFromParameter == null) {
+                System.out.println("redirect");
                 log("redirect");
                 // TODO: show error - no username entered
                 //no username in session and no username in parameter -
@@ -54,9 +56,11 @@ public class LoginServlet extends HttpServlet {
                 //normalize the username value
                 usernameFromParameter = usernameFromParameter.trim();
 
-                boolean isHuman = request.getAttribute("isHuman") != null;
+                boolean isHuman = request.getParameter("isHuman") != null;
 
                 Participant newPlayer = new Participant(usernameFromSession, isHuman);
+
+                System.out.println(usernameFromParameter + " " + isHuman);
 
                 /*
                 One can ask why not enclose all the synchronizations inside the userManager object ?
@@ -84,9 +88,9 @@ public class LoginServlet extends HttpServlet {
                         getServletContext().getRequestDispatcher(LOGIN_ERROR_URL).forward(request, response);
                     } else {
                         //add the new user to the users list
-                        userManager.addUser(usernameFromParameter);
+                        //userManager.addUser(usernameFromParameter);
 
-                        // TODO: replace with userManager.addUser(newPlayer);
+                        userManager.addUser(newPlayer);
 
 
                         //set the username in a session so it will be available on each request
