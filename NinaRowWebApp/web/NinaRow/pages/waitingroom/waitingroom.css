@@ -1,55 +1,14 @@
-.top{
-    padding: 1%;
-    border-radius: 5px;
-    border: solid 3px Red;
-    background-color: #31b0d5;
+.mainScreen{
+    margin: 1% 1% 0% 1%;
+    display: flex;
 }
 
-.games {
-    width: 79%;
-    border-radius: 5px;
-    background-color: #31b0d5;
-    float: left;
-    display: inline;
-    margin-top: 0.5%;
-    margin-left: 0.5%;
-    margin-bottom: 0.5%;
-    height: fit-content;
-
-    border: solid 3px Red;
+.gamesArea{
+    flex: 2 0 0;
 }
 
-.players{
-    border-radius: 5px;
-    border: solid 3px Red;
-    background-color: #31b0d5;
-    width: 20%;
-    float: right;
-    display: inline;
-    margin-top: 0.5%;
-    margin-left: 0.5%;
-    height: fit-content;
-    font-size: 0.9em;
-}
-
-.games div{
-    width: 20%;
-    float: left;
-    font-size: 0.9em;
-    border-bottom: solid 2px #4d0a24;
-}
-
-.games div~div{
-    border-left: solid;
-    border-left-color: Red;
-}
-
-.players .playersonline{
-    border-bottom: solid 2px #4d0a24;
-}
-
-.games ul{
-    float:inherit;
+.gamesTable{
+    border: 1px black solid;
+    border-radius: 8px;
     width: 100%;
-    list-style:none;
 }
