@@ -3,26 +3,12 @@ var chatVersion = 0;
 var gameListVersion = 0;
 var USER_LIST_URL = "/NinaRow/userlist";
 var GAME_LIST_URL = "/NinaRow/gameList";
+var LOAD_GAME_URL = "/NinaRow/loadGame";
+var GET_USERNAME_URL = "/NinaRow/getUserName";
 var CHAT_LIST_URL = "/NinaRow/chat";
 
 
-function getUserName(){
-    var result;
-    $.ajax({
-        async:false,
-        url: 'login',
-        data:{
-            action: "status"
-        },
-        type: 'GET',
-        success: function(json){
-            result = json.userName;
-        }
-    });
-
-    return result;
-}
-
+// TODO - This
 function refreshLoginStatus(){
     $.ajax({
         url:'login',
@@ -40,21 +26,20 @@ function statusCallback(json){
     } else if(json.gameNumber != -1){
         window.location = "waitingroom.html";
     } else {
-        $('.userNameSpan').text("Welcome " + json.username + ", you are a " + (json.isComputer ? "computer" : "human"));
+        $('.userNameSpan').text("Welcome " + window.username + ", you are a " + (json.isComputer ? "computer" : "human"));
     }
 }
 
 function loadGameClicked(event){
     var file = event.target.files[0];
     var reader = new FileReader();
-    var creatorName = getUserName();
+    var creatorName = window.username;
 
     reader.onload=function (){
         var content = reader.result;
         $.ajax({
-            url: 'games',
+            url: LOAD_GAME_URL,
             data: {
-                action: "loadGame",
                 file: content,
                 creator: creatorName
             },
@@ -62,18 +47,6 @@ function loadGameClicked(event){
             success: loadGameCallback
         });
     };
-
-    $.ajax({
-        url: 'login',
-        data:{
-            action: "status"
-        },
-        type: 'GET',
-        success: function(json){
-            creatorName = json.userName;
-            reader.readAsText(file);
-        }
-    });
 }
 
 function loadGameCallback(json){
@@ -89,10 +62,7 @@ function loadGameCallback(json){
 
 function refreshGamesList(){
     $.ajax({
-        url: 'games',
-        data:{
-            action: 'gameList'
-        },
+        url: GAME_LIST_URL,
         type: 'GET',
         success: refreshGamesListCallback
     })
@@ -120,7 +90,9 @@ function refreshGamesListCallback(json){
         tdPlayers.appendTo(tr);
 
         tr.appendTo(gamesTable);
-    })
+    });
+
+    // TODO - replace with join game button for each game
 
     var tr = $('.gamesTableBody tr');
     for(var i = 0; i < tr.length; i++){
@@ -128,6 +100,7 @@ function refreshGamesListCallback(json){
     }
 }
 
+/* TODO - replace with join game button
 function createGameDialog(event){
     var td = event.currentTarget.children[0];
     var number = td.innerText;
@@ -173,6 +146,7 @@ function createGameDialogCallback(json){
         playerDivs[i].innerHTML = (+i + 1) + '. ' + json.players[i].m_Name + '.';
     }
 }
+*/
 
 //users = a list of usernames, essentially an array of javascript strings:
 // ["moshe","nachum","nachche"...]
