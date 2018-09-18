@@ -1,10 +1,8 @@
 var refreshRate = 2000; //ms
 var chatVersion = 0;
-var gameListVersion = 0;
 var USER_LIST_URL = "/NinaRow/userlist";
 var GAME_LIST_URL = "/NinaRow/gameList";
 var LOAD_GAME_URL = "/NinaRow/loadGame";
-var GET_USERNAME_URL = "/NinaRow/getUserName";
 var CHAT_LIST_URL = "/NinaRow/chat";
 
 

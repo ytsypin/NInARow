@@ -1,4 +1,4 @@
-package chat.servlets;
+package ninaRow.servlets;
 
 import chat.constants.Constants;
 import chat.utils.SessionUtils;
