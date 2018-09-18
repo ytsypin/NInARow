@@ -1,17 +1,16 @@
-package chat.servlets;
+package ninaRow.servlets;
 
 import chat.utils.ServletUtils;
 import com.google.gson.Gson;
-//import engine.users.UserManager;
 import general.UserManager;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Set;
 
 public class UsersListServlet extends HttpServlet {
 
@@ -19,15 +18,19 @@ public class UsersListServlet extends HttpServlet {
             throws ServletException, IOException {
         //returning JSON objects, not HTML
         response.setContentType("application/json");
-        try (PrintWriter out = response.getWriter()) {
+
+        try(PrintWriter out = response.getWriter()){
             Gson gson = new Gson();
+
             UserManager userManager = ServletUtils.getUserManager(getServletContext());
             Set<String> usersList = userManager.getUsers();
             String json = gson.toJson(usersList);
+
             out.println(json);
             out.flush();
         }
     }
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -65,6 +68,7 @@ public class UsersListServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "User List Servlet";
     }// </editor-fold>
+
 }

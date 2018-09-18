@@ -10,7 +10,7 @@
     </servlet>
     <servlet>
         <servlet-name>UsersListServlet</servlet-name>
-        <servlet-class>chat.servlets.UsersListServlet</servlet-class>
+        <servlet-class>ninaRow.servlets.UsersListServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ChatServlet</servlet-name>
@@ -22,6 +22,6 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UsersListServlet</servlet-name>
-        <url-pattern>/NinaRow/userslist</url-pattern>
+        <url-pattern>/NinaRow/userlist</url-pattern>
     </servlet-mapping>
 </web-app>
