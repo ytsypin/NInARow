@@ -6,6 +6,23 @@ var GAME_LIST_URL = "/NinaRow/gameList";
 var CHAT_LIST_URL = "/NinaRow/chat";
 
 
+function getUserName(){
+    var result;
+    $.ajax({
+        async:false,
+        url: 'login',
+        data:{
+            action: "status"
+        },
+        type: 'GET',
+        success: function(json){
+            result = json.userName;
+        }
+    });
+
+    return result;
+}
+
 function refreshLoginStatus(){
     $.ajax({
         url:'login',
@@ -27,6 +44,135 @@ function statusCallback(json){
     }
 }
 
+function loadGameClicked(event){
+    var file = event.target.files[0];
+    var reader = new FileReader();
+    var creatorName = getUserName();
+
+    reader.onload=function (){
+        var content = reader.result;
+        $.ajax({
+            url: 'games',
+            data: {
+                action: "loadGame",
+                file: content,
+                creator: creatorName
+            },
+            type: 'POST',
+            success: loadGameCallback
+        });
+    };
+
+    $.ajax({
+        url: 'login',
+        data:{
+            action: "status"
+        },
+        type: 'GET',
+        success: function(json){
+            creatorName = json.userName;
+            reader.readAsText(file);
+        }
+    });
+}
+
+function loadGameCallback(json){
+    if(json.isLoaded){
+        alert("Load game success!!");
+        refreshGamesList();
+        clearFileInput();
+    } else {
+        clearFileInput();
+        alert(json.errorMessage);
+    }
+}
+
+function refreshGamesList(){
+    $.ajax({
+        url: 'games',
+        data:{
+            action: 'gameList'
+        },
+        type: 'GET',
+        success: refreshGamesListCallback
+    })
+}
+
+function refreshGamesListCallback(json){
+    var gamesTable = $('.gamesArea tbody');
+    gamesTable.empty();
+    var gamesList = json.games;
+
+    gamesList.forEach(function (game){
+        var tr = $(document.createElement('tr'));
+        var tdGameNumber = $(document).createElement('td').text(game.key);
+        var tdGameName = $(document.createElement('td')).text(game.name);
+        var tdGameUploader = $(document.createElement('td')).text(game.uploaderName);
+        var tdGoal = $(document.createElement('td')).text(game.goal);
+        var tdBoardSize = $(document.createElement('td')).text(game.rows + "x" + game.cols);
+        var tdPlayers = $(document.createElement('td')).text(game.registeredPlayers + "/" + game.requiredPlayers);
+
+        tdGameNumber.appendTo(tr);
+        tdGameName.appendTo(tr);
+        tdGameUploader.appendTo(tr);
+        tdGoal.appendTo(tr);
+        tdBoardSize.appendTo(tr);
+        tdPlayers.appendTo(tr);
+
+        tr.appendTo(gamesTable);
+    })
+
+    var tr = $('.gamesTableBody tr');
+    for(var i = 0; i < tr.length; i++){
+        tr[i].onClick = createGameDialog;
+    }
+}
+
+function createGameDialog(event){
+    var td = event.currentTarget.children[0];
+    var number = td.innerText;
+
+    $.ajax({
+        url: 'games',
+        data:{
+            action: 'gameDetails',
+            key: number
+        },
+        type: 'GET',
+        success: createGameDialogCallback
+    })
+}
+
+function createGameDialogCallback(json){
+    var div = $('.dialogDiv')[0];
+    div.style.display = "block";
+    var playersNamesDiv = $('.playersNames');
+
+    var key = json.key;
+    var creatorName = json.creatorName;
+    var gameName = json.gameTitle;
+    var goal = json.goal;
+    var boardSize = json.rows + " X " + json.cols;
+    var playerNumber = json.registeredPlayers + " / " + json.requiredPlayers;
+
+    // language=JQuery-CSS
+    $('.key').text("Game id: " + key + ".");
+    $('.creatorName').text("Game Creator: " + creatorName + ".");
+    $('.goal').text("Goal: " + goal + ".");
+    $('.gameName').text("Game Title: " + gameName);
+    $('.boardSize').text("Board size: " + boardSize);
+    $('.playerNumber').text("Players : " + playerNumber);
+    for (i = 0; i < json.registeredPlayers; i++) {
+        var playerDiv = $(document.createElement('div'));
+        playerDiv.addClass('playerDiv');
+        playerDiv.appendTo(playersNamesDiv);
+    }
+
+    var playerDivs = $('.playerDiv');
+    for (i = 0; i < json.registeredPlayers; i++) {
+        playerDivs[i].innerHTML = (+i + 1) + '. ' + json.players[i].m_Name + '.';
+    }
+}
 
 //users = a list of usernames, essentially an array of javascript strings:
 // ["moshe","nachum","nachche"...]
@@ -52,38 +198,6 @@ function ajaxUsersList(){
     });
 }
 
-function gameList(){
-    $.ajax({
-        url: GAME_LIST_URL,
-        success: function(gameList){
-            refreshGameList(gameList);
-        }
-    });
-}
-
-function appendToGameListArea(games){
-    $.each(games || [], appendGameEntry);
-
-    var scroller = $("gamesArea");
-    var height = scroller[0].scrollHeight - $(scroller).height();
-    $(scroller).stop().animate({ scrollTop: height}, "slow");
-}
-
-function appendGameEntry(index, entry){
-    var entryElement = createGameEntry(entry, index);
-
-    $("gamesTable").apppend(entryElement).append("<tr>");
-    //$('#joinGame' + index).onclick = joinGame(index);
-}
-
-function createGameEntry(entry, index){
-    var html = "<td>" + entry.gameName + "</td><td>" + entry.uploader +  "</td>" +
-             "<td>" + entry.goal + "</td><td>"+ entry.rows + "x" + entry.cols + "</td>" +
-             "<td>"+ entry.activePlayers + "/" + entry.requiredPlayers +"</td>" +
-             "<td>" + "<button id='joinGame" + index + "' class='btn-primary btn-xs'>Join</button>"  + "</td>";
-    return html;
-}
-
 /*
  TODO: join a game
 function joinGame(index){
@@ -93,51 +207,8 @@ function joinGame(index){
 }
 */
 
-function ajaxGameListContent(){
-    $.ajax({
-        url: GAME_LIST_URL,
-        data: "gameListVersion="+ gameListVersion,
-        dataType: 'json',
-        success: function(data){
-            /*
-            Data is of the form:
-            {
-                "games": [
-                    {
-                        "gameName":"game name",
-                        "uploader":"username",
-                        "goal":5,
-                        "rows":4,
-                        "cols":5,
-                        "playersJoined":2,
-                        "playersNeeded":5
-                        "active":"true"
-                    }, ...
-                ]
-                "version":1
-            }
-             */
-            console.log("Server game list version: " + data.version + ", Current game list version: " + gameListVersion);
-
-            if(data.version != gameListVersion){
-                gameListVersion = data.version;
-                appendToGameListArea(data.games);
-            }
-            triggerAjaxGameListContent();
-        },
-        error: function(error){
-            // TODO: Display or log error
-            triggerAjaxGameListContent();
-        }
-    })
-}
-
-function triggerAjaxGameListContent(){
-    setTimeout(ajaxGameListContent, refreshRate);
-}
-
 $(function() {
     setInterval(ajaxUsersList, refreshRate);
-    triggerAjaxGameListContent();
+    setInterval(refreshGamesList, refreshRate);
 })
 
