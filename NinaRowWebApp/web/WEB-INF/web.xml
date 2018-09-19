@@ -9,6 +9,10 @@
         <servlet-class>ninaRow.servlets.LoginServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>UsernameServlet</servlet-name>
+        <servlet-class>ninaRow.servlets.UsernameServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>UsersListServlet</servlet-name>
         <servlet-class>ninaRow.servlets.UsersListServlet</servlet-class>
     </servlet>
@@ -24,6 +28,10 @@
         <servlet-name>GameListServlet</servlet-name>
         <servlet-class>ninaRow.servlets.GameListServlet</servlet-class>
     </servlet>
+    <servlet-mapping>
+        <servlet-name>UsernameServlet</servlet-name>
+        <url-pattern>/NinaRow/username</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ChatServlet</servlet-name>
         <url-pattern>/NinaRow/chat</url-pattern>

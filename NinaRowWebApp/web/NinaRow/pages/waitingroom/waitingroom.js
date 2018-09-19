@@ -4,6 +4,7 @@ var USER_LIST_URL = "/NinaRow/userlist";
 var GAME_LIST_URL = "/NinaRow/gameList";
 var LOAD_GAME_URL = "/NinaRow/loadGame";
 var CHAT_LIST_URL = "/NinaRow/chat";
+var USERNAME_URL = "/NinaRow/username";
 var LOGOUT_URL = "/NinaRow/logout";
 
 
@@ -170,7 +171,23 @@ function joinGame(index){
 }
 */
 
+function showStatusBar(){
+    var name;
+    var humanity;
+    $.ajax({
+        url: USERNAME_URL,
+        type: 'GET',
+        success: function(data){
+            name = data.username;
+            humanity = data.humanity === true ? "Human" : "Computer";
+            $('.userNameSpan').text("Hello " +  name + " The " + humanity + "!");
+        }
+    })
+
+}
+
 $(function() {
+    showStatusBar()
     setInterval(ajaxUsersList, refreshRate);
     setInterval(refreshGamesList, refreshRate);
 })
