@@ -14,8 +14,12 @@
 
     <div class="mainScreen">
         <div class="gameUploadArea">
-            <span>Upload Game:</span>
-            <input id="gameUpload" type="file" class="gameUpload" accept="text/xml" onchange="loadGameClicked(event)">
+            <form action="/NinaRow/gameUpload" enctype="multipart/form-data" method="POST">
+                <input type="file" name="file1">
+                <br>
+                <input type="Submit" valie="Upload File">
+                <br>
+            </form>
         </div>
 
         <div class="gamesArea">

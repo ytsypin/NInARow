@@ -27,6 +27,18 @@ function loadGameClicked(event){
     };
 }
 
+function loadGameCallback(json){
+    if(json.isLoaded){
+        alert("Load game success!!");
+        refreshGamesList();
+        clearFileInput();
+    } else {
+        clearFileInput();
+        alert(json.errorMessage);
+    }
+}
+
+
 function logoutClicked(){
     $.ajax({
         url: LOGOUT_URL,
@@ -39,16 +51,6 @@ function redirectToIndexPage(){
     window.location.href= "/NinaRow/index.html";
 }
 
-function loadGameCallback(json){
-    if(json.isLoaded){
-        alert("Load game success!!");
-        refreshGamesList();
-        clearFileInput();
-    } else {
-        clearFileInput();
-        alert(json.errorMessage);
-    }
-}
 
 function refreshGamesList(){
     $.ajax({
