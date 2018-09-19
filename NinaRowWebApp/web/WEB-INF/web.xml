@@ -46,7 +46,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LoadGameServlet</servlet-name>
-        <url-pattern>/NinaRow/loadGame</url-pattern>
+        <url-pattern>/NinaRow/gameUpload</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GameListServlet</servlet-name>

@@ -7,6 +7,7 @@ import resources.generated.GameDescriptor;
 import resources.generated.Player;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +20,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Scanner;
 
+@MultipartConfig
 public class LoadGameServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
