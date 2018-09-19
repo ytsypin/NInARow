@@ -138,6 +138,8 @@ function createGameDialogCallback(json){
 }
 */
 
+
+
 //users = a list of usernames, essentially an array of javascript strings:
 // ["moshe","nachum","nachche"...]
 function refreshUsersList(users) {
