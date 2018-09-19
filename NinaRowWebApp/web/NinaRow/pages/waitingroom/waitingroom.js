@@ -4,6 +4,7 @@ var USER_LIST_URL = "/NinaRow/userlist";
 var GAME_LIST_URL = "/NinaRow/gameList";
 var LOAD_GAME_URL = "/NinaRow/loadGame";
 var CHAT_LIST_URL = "/NinaRow/chat";
+var LOGOUT_URL = "/NinaRow/logout";
 
 
 function loadGameClicked(event){
@@ -23,6 +24,18 @@ function loadGameClicked(event){
             success: loadGameCallback
         });
     };
+}
+
+function logoutClicked(){
+    $.ajax({
+        url: LOGOUT_URL,
+        type: 'GET',
+        success: redirectToIndexPage
+    });
+}
+
+function redirectToIndexPage(){
+    window.location.href= "/NinaRow/index.html";
 }
 
 function loadGameCallback(json){

@@ -13,6 +13,10 @@
         <servlet-class>ninaRow.servlets.UsersListServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>ninaRow.servlets.LogoutServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>LoadGameServlet</servlet-name>
         <servlet-class>ninaRow.servlets.LoadGameServlet</servlet-class>
     </servlet>
@@ -39,5 +43,9 @@
     <servlet-mapping>
         <servlet-name>GameListServlet</servlet-name>
         <url-pattern>/NinaRow/gameList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/NinaRow/logout</url-pattern>
     </servlet-mapping>
 </web-app>
