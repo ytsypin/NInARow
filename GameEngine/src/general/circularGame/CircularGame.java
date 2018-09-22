@@ -8,8 +8,8 @@ import javafx.collections.ObservableList;
 
 public class CircularGame extends RegularGame {
 
-    public CircularGame(int n, int rows, int cols, int numOfPlayers) {
-        super(n, rows, cols, numOfPlayers);
+    public CircularGame(int n, int rows, int cols, int numOfPlayers, String name, String uploader) {
+        super(n, rows, cols, numOfPlayers, name, uploader);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package general;
 
 import general.regularGame.RegularGame;
+import resources.generated.GameDescriptor;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,8 +18,14 @@ public class GameManager {
         gamesList.add(newGame);
     }
 
-    public synchronized List<RegularGame> getGames(){
-        return Collections.unmodifiableList(gamesList);
+    public synchronized List<RegularGame.GameDetails> getGames(){
+        List<RegularGame.GameDetails> loadedGames = new ArrayList<>();
+
+        for(RegularGame game : gamesList){
+            loadedGames.add(game.getGameForAjax());
+        }
+
+        return Collections.unmodifiableList(loadedGames);
     }
 
     public synchronized boolean isGameActive(int gameNumber){

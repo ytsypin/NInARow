@@ -50,6 +50,8 @@ public class LoadGameServlet extends HttpServlet {
 
                 GameDescriptor gameDescriptor = (GameDescriptor) jaxbUnmarshaller.unmarshal(stringReader);
 
+                String name = gameDescriptor.getDynamicPlayers().getGameTitle();
+
                 int rows = gameDescriptor.getGame().getBoard().getRows();
 
                 int cols = gameDescriptor.getGame().getBoard().getColumns().intValue();
@@ -57,6 +59,8 @@ public class LoadGameServlet extends HttpServlet {
                 int N = gameDescriptor.getGame().getTarget().intValue();
 
                 int numOfPlayers = gameDescriptor.getDynamicPlayers().getTotalPlayers();
+
+                String uploader = request.getParameter("uploader");
 
                 if (rows < 5 || 50 < rows) {
                     isLoaded = false;
@@ -79,11 +83,11 @@ public class LoadGameServlet extends HttpServlet {
                 }
 
             if(gameDescriptor.getGame().getVariant().equals("Circular")){
-                loadedGame = new CircularGame(N, rows, cols, numOfPlayers);
+                loadedGame = new CircularGame(N, rows, cols, numOfPlayers, name, uploader);
             } else if (gameDescriptor.getGame().getVariant().equals("Popout")) {
-                loadedGame = new PopoutGame(N, rows, cols, numOfPlayers);
+                loadedGame = new PopoutGame(N, rows, cols, numOfPlayers, name, uploader);
             } else if (gameDescriptor.getGame().getVariant().equals("Regular")) {
-                loadedGame = new RegularGame(N, rows, cols, numOfPlayers);
+                loadedGame = new RegularGame(N, rows, cols, numOfPlayers, name, uploader);
             } else {
                 isLoaded = false;
                 errorMessage = "Invalid game type set!";

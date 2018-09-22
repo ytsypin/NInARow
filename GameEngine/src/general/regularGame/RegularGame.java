@@ -2,11 +2,13 @@ package general.regularGame;
 
 import Exceptions.CantPopoutException;
 import Exceptions.ColumnFullException;
+import com.google.gson.Gson;
 import general.gameBoard.NinaBoard;
 import general.gameBoard.Participant;
 import general.gameBoard.Turn;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import resources.generated.GameDescriptor;
 
 import java.util.*;
 
@@ -15,6 +17,7 @@ public class RegularGame{
     public static final int regularGame = 1;
     public static final int circularGame = 2;
 
+    protected String gameName;
     protected int N;
     protected NinaBoard gameBoard;
     protected boolean winnerFound = false;
@@ -26,14 +29,19 @@ public class RegularGame{
     protected static int noMove = -1;
     protected List<Participant> winners;
     protected int requiredParticipants;
+    protected int currentParticipants;
+    protected String uploader;
 
-    public RegularGame(int n, int rows, int cols, int requiredParticipants) {
+    public RegularGame(int n, int rows, int cols, int requiredParticipants, String name, String uploader) {
         N = n;
         this.allParticipants = new ArrayList<>();
         this.gameBoard = new NinaBoard(rows, cols);
         winners = new LinkedList<>();
         originalParticipants = FXCollections.observableArrayList(allParticipants);
         this.requiredParticipants = requiredParticipants;
+        gameName = name;
+        currentParticipants = 0;
+        this.uploader = uploader;
     }
 
     public boolean isCurrentParticipantBot() {
@@ -437,5 +445,29 @@ public class RegularGame{
 
     public int getRequiredNumOfParticipants() {
         return requiredParticipants;
+    }
+
+    public GameDetails getGameForAjax(){
+        return new GameDetails(gameName, uploader, getRows(), getCols(), getN(), currentParticipants, requiredParticipants);
+    }
+
+    public class GameDetails{
+        private String name;
+        private String uploader;
+        private int rows;
+        private int cols;
+        private int goal;
+        private int currentPlayers;
+        private int requiredPlayers;
+
+        private GameDetails(String name, String uploader, int rows, int cols, int goal, int currentPlayers, int requiredPlayers){
+            this.name = name;
+            this.uploader = uploader;
+            this.rows = rows;
+            this.cols = cols;
+            this.goal = goal;
+            this.currentPlayers = currentPlayers;
+            this.requiredPlayers = requiredPlayers;
+        }
     }
 }

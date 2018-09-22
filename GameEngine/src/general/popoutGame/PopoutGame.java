@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.Random;
 
 public class PopoutGame extends RegularGame {
-    public PopoutGame(int n, int rows, int cols, int numOfPlayers) {
-        super(n, rows, cols, numOfPlayers);
+    public PopoutGame(int n, int rows, int cols, int numOfPlayers, String name, String uploader) {
+        super(n, rows, cols, numOfPlayers, name, uploader);
     }
 
 

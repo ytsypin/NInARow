@@ -157,12 +157,12 @@ function showStatusBar(){
             humanity = data.humanity === true ? "Human" : "Computer";
             $('.userNameSpan').text("Hello " +  name + " The " + humanity + "!");
         }
-    })
-
+    });
+    return name;
 }
 
 $(function() {
-    showStatusBar()
+    var username = showStatusBar();
     setInterval(ajaxUsersList, refreshRate);
     setInterval(refreshGamesList, refreshRate);
 
@@ -176,6 +176,7 @@ $(function() {
            url: this.action,
            enctype:'multipart/form-data',
            data: data,
+           uploader: name,
            contentType: false,
            processData: false,
            timeout: 4000,
@@ -192,5 +193,5 @@ $(function() {
         });
        return false;
     });
-})
+});
 
