@@ -22,11 +22,13 @@ function redirectToIndexPage(){
 
 
 function refreshGamesList(){
+    /*
     $.ajax({
         url: GAME_LIST_URL,
         type: 'GET',
         success: refreshGamesListCallback
     })
+    */
 }
 
 function refreshGamesListCallback(json){
@@ -165,9 +167,10 @@ $(function() {
     setInterval(refreshGamesList, refreshRate);
 
     $('#gameUploadForm').submit(function(e){
-       var form = $(this);
+       var file = this[0].files[0];
        var url = form.attr('action');
-       var data = new FormData(form);
+       var data = new FormData();
+       data.append("fake-key", file);
 
        $.ajax({
            type: 'POST',
@@ -179,13 +182,13 @@ $(function() {
            timeout: 4000,
            success: function(response){
                var jsonResponse = JSON.parse(response);
-               if(jsonResponse["isLoaded"]){
+               if(jsonResponse.isLoaded){
                    alert("Load game success!!");
                    refreshGamesList();
                    //clearFileInput();
                } else {
                    //clearFileInput();
-                   alert(jsonResponse["errorMessage"]);
+                   alert(jsonResponse.errorMessage);
                }
            }
         });

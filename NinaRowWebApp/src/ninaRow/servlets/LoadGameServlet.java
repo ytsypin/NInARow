@@ -26,6 +26,9 @@ import java.util.Scanner;
 public class LoadGameServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        response.setContentType("application/json");
+
         Collection<Part> parts = request.getParts();
 
         boolean isLoaded = true;
@@ -97,13 +100,15 @@ public class LoadGameServlet extends HttpServlet {
 */
         } catch (Exception e){}
 
-        PrintWriter out = response.getWriter();
-
         JsonResponse jsonResponse = new JsonResponse(isLoaded, errorMessage);
 
         Gson gson = new Gson();
         String json = gson.toJson(jsonResponse);
-        out.println(json);
+
+        try(PrintWriter out = response.getWriter()) {
+            out.print(json);
+            out.flush();
+        }
     }
 
     private class JsonResponse{
