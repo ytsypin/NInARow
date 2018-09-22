@@ -166,29 +166,27 @@ $(function() {
     setInterval(ajaxUsersList, refreshRate);
     setInterval(refreshGamesList, refreshRate);
 
-    $('#gameUploadForm').submit(function(e){
+    $('#gameUploadForm').submit(function(){
        var file = this[0].files[0];
-       var url = form.attr('action');
        var data = new FormData();
        data.append("fake-key", file);
 
        $.ajax({
            type: 'POST',
-           url: url,
+           url: this.action,
            enctype:'multipart/form-data',
            data: data,
            contentType: false,
            processData: false,
            timeout: 4000,
            success: function(response){
-               var jsonResponse = JSON.parse(response);
-               if(jsonResponse.isLoaded){
+               if(response.isLoaded){
                    alert("Load game success!!");
                    refreshGamesList();
                    //clearFileInput();
                } else {
                    //clearFileInput();
-                   alert(jsonResponse.errorMessage);
+                   alert(response.errorMessage);
                }
            }
         });

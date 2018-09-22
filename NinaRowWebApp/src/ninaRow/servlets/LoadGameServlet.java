@@ -1,13 +1,8 @@
 package ninaRow.servlets;
 
 import com.google.gson.Gson;
-import general.Participant;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import resources.generated.GameDescriptor;
-import resources.generated.Player;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
@@ -17,15 +12,12 @@ import javax.servlet.http.Part;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Scanner;
 
 @MultipartConfig
 public class LoadGameServlet extends HttpServlet {
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         response.setContentType("application/json");
 
@@ -100,22 +92,22 @@ public class LoadGameServlet extends HttpServlet {
 */
         } catch (Exception e){}
 
-        JsonResponse jsonResponse = new JsonResponse(isLoaded, errorMessage);
+        GameStatus gameStatus = new GameStatus(isLoaded, errorMessage);
 
         Gson gson = new Gson();
-        String json = gson.toJson(jsonResponse);
+        String jsonResponse = gson.toJson(gameStatus);
 
         try(PrintWriter out = response.getWriter()) {
-            out.print(json);
+            out.print(jsonResponse);
             out.flush();
         }
     }
 
-    private class JsonResponse{
-        boolean isLoaded;
-        String errorMessage;
+    private class GameStatus {
+        final boolean isLoaded;
+        final String errorMessage;
 
-        private JsonResponse(boolean isLoaded, String errorMessage){
+        private GameStatus(boolean isLoaded, String errorMessage){
             this.isLoaded = isLoaded;
             this.errorMessage = errorMessage;
         }
@@ -124,4 +116,43 @@ public class LoadGameServlet extends HttpServlet {
     private String readFromInputStream(InputStream inputStream) {
         return new Scanner(inputStream).useDelimiter("\\Z").next();
     }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "User List Servlet";
+    }// </editor-fold>
 }
