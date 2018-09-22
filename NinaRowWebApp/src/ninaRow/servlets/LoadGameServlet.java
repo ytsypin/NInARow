@@ -1,11 +1,13 @@
 package ninaRow.servlets;
 
+import com.google.gson.Gson;
 import general.Participant;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import resources.generated.GameDescriptor;
 import resources.generated.Player;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
@@ -25,6 +27,10 @@ public class LoadGameServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Collection<Part> parts = request.getParts();
+
+        boolean isLoaded = true;
+
+        String errorMessage = "none";
 
         StringBuilder fileContent = new StringBuilder();
 
@@ -49,51 +55,32 @@ public class LoadGameServlet extends HttpServlet {
 
             int N = gameDescriptor.getGame().getTarget().intValue();
 
-            List<Player> allPlayers = gameDescriptor.getPlayers().getPlayer();
+            int numOfPlayers = gameDescriptor.getDynamicPlayers().getTotalPlayers();
 
             if (rows < 5 || 50 < rows) {
 //            throw new InvalidNumberOfRowsException(rows);
+                isLoaded = false;
+                errorMessage = "Invalid number of rows!";
             }
 
             if (cols < 6 || 30 < cols) {
 //            throw new InvalidNumberOfColsException(cols);
+                isLoaded = false;
+                errorMessage = "Invalid number of columns!";
             }
 
 
             if (N >= Math.min(rows, cols) || N < 2) {
 //            throw new InvalidTargetException(N);
+                isLoaded = false;
+                errorMessage = "Invalid goal(N) value!";
             }
 
-            if (allPlayers.size() < 2 || 6 < allPlayers.size()) {
+            if (numOfPlayers < 2 || 6 < numOfPlayers) {
 //            throw new InvalidNumberOfPlayersException(allPlayers.size());
+                isLoaded = false;
+                errorMessage =  "Invalid number of players!";
             }
-
-
-            ObservableList<Participant> playerList = FXCollections.observableArrayList();
-            List<Short> idList = new ArrayList<>();
-
-            int playerNum = 1;
-            for (Player player : allPlayers) {
-                Short playerID = player.getId();
-
-                boolean isBot;
-                if (player.getType().equals("Computer")) {
-                    isBot = true;
-                } else if (player.getType().equals("Human")) {
-                    isBot = false;
-                } else {
-//                throw new ParticipantTypeException();
-                }
-//            Participant participant = new Participant(player.getName(), isBot, player.getId(), playerNum);
-                playerNum++;
-//            playerList.add(participant);
-                if (idList.contains(player.getId())) {
-//                throw new IDDuplicateException(player.getId());
-                } else {
-                    idList.add(player.getId());
-                }
-            }
-
 
 /*
         if(gameDescriptor.getGame().getVariant().equals("Circular")){
@@ -104,11 +91,30 @@ public class LoadGameServlet extends HttpServlet {
             retGame = new RegularGame(N, playerList, rows, cols);
         } else {
             throw new GameTypeException();
+            isLoaded = false;
+            errorMessage = "Invalid game type set!";
         }
 */
         } catch (Exception e){}
+
+        PrintWriter out = response.getWriter();
+
+        JsonResponse jsonResponse = new JsonResponse(isLoaded, errorMessage);
+
+        Gson gson = new Gson();
+        String json = gson.toJson(jsonResponse);
+        out.println(json);
     }
 
+    private class JsonResponse{
+        boolean isLoaded;
+        String errorMessage;
+
+        private JsonResponse(boolean isLoaded, String errorMessage){
+            this.isLoaded = isLoaded;
+            this.errorMessage = errorMessage;
+        }
+    }
 
     private String readFromInputStream(InputStream inputStream) {
         return new Scanner(inputStream).useDelimiter("\\Z").next();

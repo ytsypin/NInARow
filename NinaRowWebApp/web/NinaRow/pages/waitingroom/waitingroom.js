@@ -8,37 +8,6 @@ var USERNAME_URL = "/NinaRow/username";
 var LOGOUT_URL = "/NinaRow/logout";
 
 
-function loadGameClicked(event){
-    var file = event.target.files[0];
-    var reader = new FileReader();
-    var creatorName = window.username;
-
-    reader.onload=function (){
-        var content = reader.result;
-        $.ajax({
-            url: LOAD_GAME_URL,
-            data: {
-                file: content,
-                creator: creatorName
-            },
-            type: 'POST',
-            success: loadGameCallback
-        });
-    };
-}
-
-function loadGameCallback(json){
-    if(json.isLoaded){
-        alert("Load game success!!");
-        refreshGamesList();
-        clearFileInput();
-    } else {
-        clearFileInput();
-        alert(json.errorMessage);
-    }
-}
-
-
 function logoutClicked(){
     $.ajax({
         url: LOGOUT_URL,
@@ -194,5 +163,33 @@ $(function() {
     showStatusBar()
     setInterval(ajaxUsersList, refreshRate);
     setInterval(refreshGamesList, refreshRate);
+
+    $('#gameUploadForm').submit(function(e){
+       var form = $(this);
+       var url = form.attr('action');
+       var data = new FormData(form);
+
+       $.ajax({
+           type: 'POST',
+           url: url,
+           enctype:'multipart/form-data',
+           data: data,
+           contentType: false,
+           processData: false,
+           timeout: 4000,
+           success: function(response){
+               var jsonResponse = JSON.parse(response);
+               if(jsonResponse["isLoaded"]){
+                   alert("Load game success!!");
+                   refreshGamesList();
+                   //clearFileInput();
+               } else {
+                   //clearFileInput();
+                   alert(jsonResponse["errorMessage"]);
+               }
+           }
+        });
+       return false;
+    });
 })
 
