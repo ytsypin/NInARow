@@ -1,6 +1,7 @@
 package ninaRow.servlets;
 
 import chat.utils.ServletUtils;
+import chat.utils.SessionUtils;
 import com.google.gson.Gson;
 import general.GameManager;
 import general.circularGame.CircularGame;
@@ -60,7 +61,12 @@ public class LoadGameServlet extends HttpServlet {
 
                 int numOfPlayers = gameDescriptor.getDynamicPlayers().getTotalPlayers();
 
-                String uploader = request.getParameter("uploader");
+                String uploader = SessionUtils.getUsername(request);
+
+                if(uploader == null){
+                    response.sendRedirect("/NinaRow/index.html");
+                }
+
 
                 if (rows < 5 || 50 < rows) {
                     isLoaded = false;
@@ -94,10 +100,12 @@ public class LoadGameServlet extends HttpServlet {
             }
         } catch (Exception e){}
 
-        if(loadedGame != null) {
+        if(isLoaded) {
             GameManager gameManager = ServletUtils.getGameManager(getServletContext());
 
             gameManager.addGame(loadedGame);
+
+            System.out.println(loadedGame.getUploader() + "uploaded a game." );
         }
         GameStatus gameStatus = new GameStatus(isLoaded, errorMessage);
 

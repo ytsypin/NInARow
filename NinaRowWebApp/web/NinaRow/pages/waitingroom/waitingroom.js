@@ -22,45 +22,22 @@ function redirectToIndexPage(){
 
 
 function refreshGamesList(){
-    /*
-    $.ajax({
-        url: GAME_LIST_URL,
-        type: 'GET',
-        success: refreshGamesListCallback
-    })
-    */
-}
+    // TODO - Add join button to each row
 
-function refreshGamesListCallback(json){
-    var gamesTable = $('.gamesArea tbody');
-    gamesTable.empty();
-    var gamesList = json.games;
-
-    gamesList.forEach(function (game){
-        var tr = $(document.createElement('tr'));
-        var tdGameNumber = $(document).createElement('td').text(game.key);
-        var tdGameName = $(document.createElement('td')).text(game.name);
-        var tdGameUploader = $(document.createElement('td')).text(game.uploaderName);
-        var tdGoal = $(document.createElement('td')).text(game.goal);
-        var tdBoardSize = $(document.createElement('td')).text(game.rows + "x" + game.cols);
-        var tdPlayers = $(document.createElement('td')).text(game.registeredPlayers + "/" + game.requiredPlayers);
-
-        tdGameNumber.appendTo(tr);
-        tdGameName.appendTo(tr);
-        tdGameUploader.appendTo(tr);
-        tdGoal.appendTo(tr);
-        tdBoardSize.appendTo(tr);
-        tdPlayers.appendTo(tr);
-
-        tr.appendTo(gamesTable);
+    $.getJSON(GAME_LIST_URL, function(data){
+        $('#gamesTableBody').empty();
+        $(data).each(function(i, game){
+           $('#gamesTableBody').append($("<tr>")
+               .append($("<td>").append(i+1))
+               .append($("<td>").append(game.name))
+               .append($("<td>").append(game.uploader))
+               .append($("<td>").append(game.dimensions))
+               .append($("<td>").append(game.goal))
+               .append($("<td>").append(game.players))
+               .append($("<td>").append("<button class='joinGame'>Join Game</>"))
+           )
+       })
     });
-
-    // TODO - replace with join game button for each game
-
-    var tr = $('.gamesTableBody tr');
-    for(var i = 0; i < tr.length; i++){
-        tr[i].onClick = createGameDialog;
-    }
 }
 
 /* TODO - replace with join game button
@@ -149,6 +126,7 @@ function joinGame(index){
 function showStatusBar(){
     var name;
     var humanity;
+
     $.ajax({
         url: USERNAME_URL,
         type: 'GET',
@@ -158,11 +136,10 @@ function showStatusBar(){
             $('.userNameSpan').text("Hello " +  name + " The " + humanity + "!");
         }
     });
-    return name;
 }
 
 $(function() {
-    var username = showStatusBar();
+    showStatusBar();
     setInterval(ajaxUsersList, refreshRate);
     setInterval(refreshGamesList, refreshRate);
 
@@ -176,7 +153,6 @@ $(function() {
            url: this.action,
            enctype:'multipart/form-data',
            data: data,
-           uploader: name,
            contentType: false,
            processData: false,
            timeout: 4000,

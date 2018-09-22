@@ -56,7 +56,7 @@ public class ServletUtils {
     public static GameManager getGameManager(ServletContext servletContext) {
 		synchronized (gameManagerLock) {
 			if (servletContext.getAttribute(GAME_MANAGER_ATTRIBUTE_NAME) == null) {
-				servletContext.setAttribute(GAME_MANAGER_ATTRIBUTE_NAME, new UserManager());
+				servletContext.setAttribute(GAME_MANAGER_ATTRIBUTE_NAME, new GameManager());
 			}
 		}
 		return (GameManager) servletContext.getAttribute(GAME_MANAGER_ATTRIBUTE_NAME);

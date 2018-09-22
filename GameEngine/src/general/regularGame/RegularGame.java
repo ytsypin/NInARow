@@ -451,23 +451,23 @@ public class RegularGame{
         return new GameDetails(gameName, uploader, getRows(), getCols(), getN(), currentParticipants, requiredParticipants);
     }
 
+    public String getUploader() {
+        return uploader;
+    }
+
     public class GameDetails{
         private String name;
         private String uploader;
-        private int rows;
-        private int cols;
-        private int goal;
-        private int currentPlayers;
-        private int requiredPlayers;
+        private String players;
+        private String dimensions;
+        private String goal;
 
         private GameDetails(String name, String uploader, int rows, int cols, int goal, int currentPlayers, int requiredPlayers){
             this.name = name;
             this.uploader = uploader;
-            this.rows = rows;
-            this.cols = cols;
-            this.goal = goal;
-            this.currentPlayers = currentPlayers;
-            this.requiredPlayers = requiredPlayers;
+            dimensions = Integer.toString(rows) + " x " + Integer.toString(cols);
+            this.goal = Integer.toString(goal);
+            players = Integer.toString(currentPlayers) + "\\" + Integer.toString(requiredPlayers);
         }
     }
 }
