@@ -3,9 +3,9 @@ package ninaRow.servlets;
 import chat.constants.Constants;
 import chat.utils.SessionUtils;
 import chat.utils.ServletUtils;
-//import engine.users.UserManager;
-import general.Participant;
+import general.GameManager;
 import general.UserManager;
+import general.gameBoard.Participant;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

@@ -1,6 +1,11 @@
 package ninaRow.servlets;
 
+import chat.utils.ServletUtils;
 import com.google.gson.Gson;
+import general.GameManager;
+import general.circularGame.CircularGame;
+import general.popoutGame.PopoutGame;
+import general.regularGame.RegularGame;
 import resources.generated.GameDescriptor;
 
 import javax.servlet.ServletException;
@@ -29,69 +34,67 @@ public class LoadGameServlet extends HttpServlet {
 
         StringBuilder fileContent = new StringBuilder();
 
-        for (Part part : parts) {
+        RegularGame loadedGame = null;
 
+        for (Part part : parts) {
             //to write the content of the file to a string
             fileContent.append(readFromInputStream(part.getInputStream()));
         }
 
         try {
-            StringReader stringReader = new StringReader(fileContent.toString());
+                StringReader stringReader = new StringReader(fileContent.toString());
 
-            JAXBContext jaxbContext = JAXBContext.newInstance(GameDescriptor.class);
+                JAXBContext jaxbContext = JAXBContext.newInstance(GameDescriptor.class);
 
-            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+                Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 
-            GameDescriptor gameDescriptor = (GameDescriptor) jaxbUnmarshaller.unmarshal(stringReader);
+                GameDescriptor gameDescriptor = (GameDescriptor) jaxbUnmarshaller.unmarshal(stringReader);
 
-            int rows = gameDescriptor.getGame().getBoard().getRows();
+                int rows = gameDescriptor.getGame().getBoard().getRows();
 
-            int cols = gameDescriptor.getGame().getBoard().getColumns().intValue();
+                int cols = gameDescriptor.getGame().getBoard().getColumns().intValue();
 
-            int N = gameDescriptor.getGame().getTarget().intValue();
+                int N = gameDescriptor.getGame().getTarget().intValue();
 
-            int numOfPlayers = gameDescriptor.getDynamicPlayers().getTotalPlayers();
+                int numOfPlayers = gameDescriptor.getDynamicPlayers().getTotalPlayers();
 
-            if (rows < 5 || 50 < rows) {
-//            throw new InvalidNumberOfRowsException(rows);
+                if (rows < 5 || 50 < rows) {
+                    isLoaded = false;
+                    errorMessage = "Invalid number of rows!";
+                }
+
+                if (cols < 6 || 30 < cols) {
+                    isLoaded = false;
+                    errorMessage = "Invalid number of columns!";
+                }
+
+                if (N >= Math.min(rows, cols) || N < 2) {
+                    isLoaded = false;
+                    errorMessage = "Invalid goal(N) value!";
+                }
+
+                if (numOfPlayers < 2 || 6 < numOfPlayers) {
+                    isLoaded = false;
+                    errorMessage =  "Invalid number of players!";
+                }
+
+            if(gameDescriptor.getGame().getVariant().equals("Circular")){
+                loadedGame = new CircularGame(N, rows, cols, numOfPlayers);
+            } else if (gameDescriptor.getGame().getVariant().equals("Popout")) {
+                loadedGame = new PopoutGame(N, rows, cols, numOfPlayers);
+            } else if (gameDescriptor.getGame().getVariant().equals("Regular")) {
+                loadedGame = new RegularGame(N, rows, cols, numOfPlayers);
+            } else {
                 isLoaded = false;
-                errorMessage = "Invalid number of rows!";
+                errorMessage = "Invalid game type set!";
             }
-
-            if (cols < 6 || 30 < cols) {
-//            throw new InvalidNumberOfColsException(cols);
-                isLoaded = false;
-                errorMessage = "Invalid number of columns!";
-            }
-
-
-            if (N >= Math.min(rows, cols) || N < 2) {
-//            throw new InvalidTargetException(N);
-                isLoaded = false;
-                errorMessage = "Invalid goal(N) value!";
-            }
-
-            if (numOfPlayers < 2 || 6 < numOfPlayers) {
-//            throw new InvalidNumberOfPlayersException(allPlayers.size());
-                isLoaded = false;
-                errorMessage =  "Invalid number of players!";
-            }
-
-/*
-        if(gameDescriptor.getGame().getVariant().equals("Circular")){
-            retGame = new CircularGame(N, playerList, rows, cols);
-        } else if (gameDescriptor.getGame().getVariant().equals("Popout")) {
-            retGame = new PopoutGame(N, playerList, rows, cols);
-        } else if (gameDescriptor.getGame().getVariant().equals("Regular")) {
-            retGame = new RegularGame(N, playerList, rows, cols);
-        } else {
-            throw new GameTypeException();
-            isLoaded = false;
-            errorMessage = "Invalid game type set!";
-        }
-*/
         } catch (Exception e){}
 
+        if(loadedGame != null) {
+            GameManager gameManager = ServletUtils.getGameManager(getServletContext());
+
+            gameManager.addGame(loadedGame);
+        }
         GameStatus gameStatus = new GameStatus(isLoaded, errorMessage);
 
         Gson gson = new Gson();

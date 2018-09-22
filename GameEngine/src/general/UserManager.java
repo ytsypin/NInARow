@@ -1,5 +1,7 @@
 package general;
 
+import general.gameBoard.Participant;
+
 import java.util.*;
 
 public class UserManager {
@@ -12,7 +14,7 @@ public class UserManager {
     public synchronized void addUser(Participant user) {
 
         System.out.println("Adding user " + user);
-        usersMap.put(user.name, user);
+        usersMap.put(user.getName(), user);
     }
 
     public synchronized void removeUser(String username) {
@@ -28,6 +30,6 @@ public class UserManager {
     }
 
     public boolean isUserHuman(String username){
-        return usersMap.get(username).isHuman;
+        return usersMap.get(username).getIsHuman();
     }
 }
