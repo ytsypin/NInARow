@@ -22,7 +22,7 @@ function redirectToIndexPage(){
 
 
 function refreshGamesList(){
-    // TODO - Add join button to each row
+    // TODO - change button appearance/accessibility according to the number of players
 
     $.getJSON(GAME_LIST_URL, function(data){
         $('#gamesTableBody').empty();
@@ -34,59 +34,11 @@ function refreshGamesList(){
                .append($("<td>").append(game.dimensions))
                .append($("<td>").append(game.goal))
                .append($("<td>").append(game.players))
-               .append($("<td>").append("<button class='joinGame'>Join Game</>"))
+               .append($("<td>").append("<button class='joinGame'>Join Game</button>"))
            )
        })
     });
 }
-
-/* TODO - replace with join game button
-function createGameDialog(event){
-    var td = event.currentTarget.children[0];
-    var number = td.innerText;
-
-    $.ajax({
-        url: 'games',
-        data:{
-            action: 'gameDetails',
-            key: number
-        },
-        type: 'GET',
-        success: createGameDialogCallback
-    })
-}
-
-function createGameDialogCallback(json){
-    var div = $('.dialogDiv')[0];
-    div.style.display = "block";
-    var playersNamesDiv = $('.playersNames');
-
-    var key = json.key;
-    var creatorName = json.creatorName;
-    var gameName = json.gameTitle;
-    var goal = json.goal;
-    var boardSize = json.rows + " X " + json.cols;
-    var playerNumber = json.registeredPlayers + " / " + json.requiredPlayers;
-
-    // language=JQuery-CSS
-    $('.key').text("Game id: " + key + ".");
-    $('.creatorName').text("Game Creator: " + creatorName + ".");
-    $('.goal').text("Goal: " + goal + ".");
-    $('.gameName').text("Game Title: " + gameName);
-    $('.boardSize').text("Board size: " + boardSize);
-    $('.playerNumber').text("Players : " + playerNumber);
-    for (i = 0; i < json.registeredPlayers; i++) {
-        var playerDiv = $(document.createElement('div'));
-        playerDiv.addClass('playerDiv');
-        playerDiv.appendTo(playersNamesDiv);
-    }
-
-    var playerDivs = $('.playerDiv');
-    for (i = 0; i < json.registeredPlayers; i++) {
-        playerDivs[i].innerHTML = (+i + 1) + '. ' + json.players[i].m_Name + '.';
-    }
-}
-*/
 
 
 
