@@ -448,7 +448,7 @@ public class RegularGame{
     }
 
     public GameDetails getGameForAjax(){
-        return new GameDetails(gameName, uploader, getRows(), getCols(), getN(), currentParticipants, requiredParticipants);
+        return new GameDetails(gameName, uploader, getRows(), getCols(), getN(), currentParticipants, requiredParticipants, isActive);
     }
 
     public String getUploader() {
@@ -461,13 +461,15 @@ public class RegularGame{
         private String players;
         private String dimensions;
         private String goal;
+        private boolean isActive;
 
-        private GameDetails(String name, String uploader, int rows, int cols, int goal, int currentPlayers, int requiredPlayers){
+        private GameDetails(String name, String uploader, int rows, int cols, int goal, int currentPlayers, int requiredPlayers, boolean isActive){
             this.name = name;
             this.uploader = uploader;
             dimensions = Integer.toString(rows) + " x " + Integer.toString(cols);
             this.goal = Integer.toString(goal);
             players = Integer.toString(currentPlayers) + "\\" + Integer.toString(requiredPlayers);
+            this.isActive = isActive;
         }
     }
 }

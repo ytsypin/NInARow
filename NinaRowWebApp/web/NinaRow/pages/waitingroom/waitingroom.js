@@ -34,8 +34,11 @@ function refreshGamesList(){
                .append($("<td>").append(game.dimensions))
                .append($("<td>").append(game.goal))
                .append($("<td>").append(game.players))
-               .append($("<td>").append("<button class='joinGame'>Join Game</button>"))
-           )
+               .append($("<td>").append(
+                   "<button class='" +
+                   // If the game isn't active yet players can join the game
+                   // Otherwise, players can spectate
+                   (!game.isActive ? "joinGame'>Join Game</button>" : "spectate'>Spectate</button>"))))
        })
     });
 }
