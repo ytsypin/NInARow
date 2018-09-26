@@ -39,4 +39,10 @@ public class GameManager {
     public synchronized int getRequiredNumOfParticipants(int gameNumber){
         return gamesList.get(gameNumber).getRequiredNumOfParticipants();
     }
+
+    public void addParticipantToGame(int gameNumber, String participantName) {
+
+    }
+
+    //public synchronized int addParticipant
 }

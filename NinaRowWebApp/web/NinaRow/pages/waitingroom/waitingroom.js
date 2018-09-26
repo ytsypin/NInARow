@@ -1,11 +1,10 @@
 var refreshRate = 2000; //ms
-var chatVersion = 0;
 var USER_LIST_URL = "/NinaRow/userlist";
 var GAME_LIST_URL = "/NinaRow/gameList";
-var LOAD_GAME_URL = "/NinaRow/loadGame";
-var CHAT_LIST_URL = "/NinaRow/chat";
 var USERNAME_URL = "/NinaRow/username";
 var LOGOUT_URL = "/NinaRow/logout";
+var JOIN_GAME_URL = "/NinaRow/joinGame";
+
 
 
 function logoutClicked(){
@@ -27,7 +26,7 @@ function refreshGamesList(){
     $.getJSON(GAME_LIST_URL, function(data){
         $('#gamesTableBody').empty();
         $(data).each(function(i, game){
-           $('#gamesTableBody').append($("<tr>")
+            $('#gamesTableBody').append($("<tr>")
                .append($("<td>").append(i+1))
                .append($("<td>").append(game.name))
                .append($("<td>").append(game.uploader))
@@ -38,11 +37,23 @@ function refreshGamesList(){
                    "<button class='" +
                    // If the game isn't active yet players can join the game
                    // Otherwise, players can spectate
-                   (!game.isActive ? "joinGame'>Join Game</button>" : "spectate'>Spectate</button>"))))
-       })
+                   (!game.isActive ? "joinGame' id='join" + i + "'>Join Game</button>" : "spectate'>Spectate</button>"))));
+
+            var buttonid = 'join'+i;
+            var buttonElement = document.getElementById(buttonid);
+
+            buttonElement.onclick = function(){ return joinGame(i)};
+        })
     });
 }
 
+function joinGame(gameNum){
+    alert("Joining game" + gameNum + "!");
+    $.ajax({
+      url: JOIN_GAME_URL,
+      gameNumber: gameNum
+    })
+}
 
 
 //users = a list of usernames, essentially an array of javascript strings:
@@ -69,14 +80,6 @@ function ajaxUsersList(){
     });
 }
 
-/*
- TODO: join a game
-function joinGame(index){
-    $.ajax({
-
-    });
-}
-*/
 
 function showStatusBar(){
     var name;
