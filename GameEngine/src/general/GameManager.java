@@ -1,5 +1,6 @@
 package general;
 
+import general.gameBoard.Participant;
 import general.regularGame.RegularGame;
 import resources.generated.GameDescriptor;
 
@@ -40,8 +41,10 @@ public class GameManager {
         return gamesList.get(gameNumber).getRequiredNumOfParticipants();
     }
 
-    public void addParticipantToGame(int gameNumber, String participantName) {
+    public void addParticipantToGame(int gameNumber, Participant newParticipant) {
+        RegularGame game = gamesList.get(gameNumber);
 
+        game.addParticipant(newParticipant);
     }
 
     //public synchronized int addParticipant

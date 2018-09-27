@@ -37,7 +37,6 @@ public class RegularGame{
         this.allParticipants = new ArrayList<>();
         this.gameBoard = new NinaBoard(rows, cols);
         winners = new LinkedList<>();
-        originalParticipants = FXCollections.observableArrayList(allParticipants);
         this.requiredParticipants = requiredParticipants;
         gameName = name;
         currentParticipants = 0;
@@ -453,6 +452,19 @@ public class RegularGame{
 
     public String getUploader() {
         return uploader;
+    }
+
+    public void addParticipant(Participant newParticipant){
+        allParticipants.add(newParticipant);
+        currentParticipants++;
+
+        if(currentParticipants == requiredParticipants){
+            originalParticipants = FXCollections.observableArrayList(allParticipants);
+        }
+
+        currentParticipant = allParticipants.get(currentParticipantNumber);
+
+        isActive = true;
     }
 
     public class GameDetails{

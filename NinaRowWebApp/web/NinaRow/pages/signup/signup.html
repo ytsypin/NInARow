@@ -3,6 +3,7 @@
     <head>
         <script src="../../common/jquery-2.0.3.min.js"></script>
         <script src="../../common/context-path-helper.js"></script>
+        <link rel="stylesheet" href="signup.js">
         <link rel="stylesheet" href="../../common/bootstrap.min.css">
 
         <link rel="stylesheet" href="signup.css">
@@ -22,7 +23,7 @@
             <br>
             <form mtehod="GET" action="/NinaRow/pages/signup/login">
                 <div>
-                    <span>Enter your username:</span>
+                    <span>Enter your desired username:</span>
                     <input type="text" name="username">
                 </div>
                 <br>
@@ -32,6 +33,7 @@
                 </div>
                 <input type="submit" value="Login">
             </form>
+            <span class="errorSpan"></span>
         </div>
     </body>
 </html>

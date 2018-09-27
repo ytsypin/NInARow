@@ -5,11 +5,13 @@ import chat.utils.SessionUtils;
 import com.google.gson.Gson;
 import general.GameManager;
 import general.UserManager;
+import general.gameBoard.Participant;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -19,11 +21,15 @@ public class JoinGameServlet extends HttpServlet {
 
         GameManager gameManager = ServletUtils.getGameManager(getServletContext());
 
+        UserManager userManager = ServletUtils.getUserManager(getServletContext());
+
         int gameNumber = (int)request.getAttribute("gameNumber");
+
         String participantName = SessionUtils.getUsername(request);
 
-        gameManager.addParticipantToGame(gameNumber, participantName);
+        Participant newParticipant = userManager.getParticipant(participantName);
 
+        gameManager.addParticipantToGame(gameNumber, newParticipant);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

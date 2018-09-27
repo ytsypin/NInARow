@@ -32,4 +32,6 @@ public class UserManager {
     public boolean isUserHuman(String username){
         return usersMap.get(username).getIsHuman();
     }
+
+    public Participant getParticipant(String username){ return usersMap.get(username); }
 }
