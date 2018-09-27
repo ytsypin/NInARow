@@ -3,7 +3,6 @@ package ninaRow.servlets;
 import chat.constants.Constants;
 import chat.utils.SessionUtils;
 import chat.utils.ServletUtils;
-import general.GameManager;
 import general.UserManager;
 import general.gameBoard.Participant;
 
@@ -24,7 +23,7 @@ public class LoginServlet extends HttpServlet {
     // Each method with it's pros and cons...
     private final String WAITING_ROOM_URL = "/NinaRow/pages/waitingroom/waitingroom.html";
     private final String SIGN_UP_URL = "/NinaRow/pages/signup/signup.html";
-    private final String LOGIN_ERROR_URL = "/NinaRow/pages/loginerror/login_attempt_after_error.jsp";  // must start with '/' since will be used in request dispatcher...
+    private final String LOGIN_ERROR_URL = "/NinaRow/pages/signup/loginerror.html";  // must start with '/' since will be used in request dispatcher...
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -73,19 +72,14 @@ public class LoginServlet extends HttpServlet {
                 do here other not related actions (such as request dispatcher\redirection etc. this is shown here in that manner just to stress this issue
                  */
                 synchronized (this) {
-/*                  Same user can log in several times, this is unnecessary - for now.
                     if (userManager.isUserExists(usernameFromParameter)) {
-                        String errorMessage = "Username " + usernameFromParameter + " already exists. Please enter a different username.";
-                        // username already exists, forward the request back to index.jsp
-                        // with a parameter that indicates that an error should be displayed
+                        // username already exists, forward the request back to loginerror.html
                         // the request dispatcher obtained from the servlet context is one that MUST get an absolute path (starting with'/')
                         // and is relative to the web app root
                         // see this link for more details:
                         // http://timjansen.github.io/jarfiller/guide/servlet25/requestdispatcher.xhtml
-                        request.setAttribute(Constants.USER_NAME_ERROR, errorMessage);
                         getServletContext().getRequestDispatcher(LOGIN_ERROR_URL).forward(request, response);
                     } else {
-*/
 
 
                         //add the new user to the users list
@@ -100,7 +94,7 @@ public class LoginServlet extends HttpServlet {
                         System.out.println("On login, request URI is: " + request.getRequestURI());
                         response.sendRedirect(WAITING_ROOM_URL);
 
-                 //   }
+                    }
                 }
             }
         } else {

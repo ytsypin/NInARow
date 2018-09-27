@@ -15,9 +15,9 @@
     <div class="mainScreen">
         <div class="gameUploadArea">
             <form id="gameUploadForm" action="/NinaRow/gameUpload" enctype="multipart/form-data" method="POST">
-                <input type="file" name="file1" accept="text/xml">
+                <input id="fileInput" class="fileInput" type="file" name="file" accept="text/xml">
                 <br>
-                <input accept="text/xml" type="Submit" value="Upload File">
+                <input accept="text/xml" type="Submit" value="Upload File" disabled="disabled">
                 <br>
             </form>
         </div>

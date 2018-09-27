@@ -1,14 +1,12 @@
 package general.regularGame;
 
-import Exceptions.CantPopoutException;
-import Exceptions.ColumnFullException;
-import com.google.gson.Gson;
+import general.Exceptions.CantPopoutException;
+import general.Exceptions.ColumnFullException;
 import general.gameBoard.NinaBoard;
 import general.gameBoard.Participant;
 import general.gameBoard.Turn;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import resources.generated.GameDescriptor;
 
 import java.util.*;
 

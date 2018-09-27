@@ -1,7 +1,7 @@
 package general.popoutGame;
 
-import Exceptions.CantPopoutException;
-import Exceptions.ColumnFullException;
+import general.Exceptions.CantPopoutException;
+import general.Exceptions.ColumnFullException;
 import general.gameBoard.NinaBoard;
 import general.gameBoard.Participant;
 import general.gameBoard.Turn;

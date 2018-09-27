@@ -31,6 +31,8 @@ public class LoadGameServlet extends HttpServlet {
 
         boolean isLoaded = true;
 
+        boolean noFile = false;
+
         String errorMessage = "none";
 
         StringBuilder fileContent = new StringBuilder();
@@ -43,52 +45,52 @@ public class LoadGameServlet extends HttpServlet {
         }
 
         try {
-                StringReader stringReader = new StringReader(fileContent.toString());
+            StringReader stringReader = new StringReader(fileContent.toString());
 
-                JAXBContext jaxbContext = JAXBContext.newInstance(GameDescriptor.class);
+            JAXBContext jaxbContext = JAXBContext.newInstance(GameDescriptor.class);
 
-                Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 
-                GameDescriptor gameDescriptor = (GameDescriptor) jaxbUnmarshaller.unmarshal(stringReader);
+            GameDescriptor gameDescriptor = (GameDescriptor) jaxbUnmarshaller.unmarshal(stringReader);
 
-                String name = gameDescriptor.getDynamicPlayers().getGameTitle();
+            String name = gameDescriptor.getDynamicPlayers().getGameTitle();
 
-                int rows = gameDescriptor.getGame().getBoard().getRows();
+            int rows = gameDescriptor.getGame().getBoard().getRows();
 
-                int cols = gameDescriptor.getGame().getBoard().getColumns().intValue();
+            int cols = gameDescriptor.getGame().getBoard().getColumns().intValue();
 
-                int N = gameDescriptor.getGame().getTarget().intValue();
+            int N = gameDescriptor.getGame().getTarget().intValue();
 
-                int numOfPlayers = gameDescriptor.getDynamicPlayers().getTotalPlayers();
+            int numOfPlayers = gameDescriptor.getDynamicPlayers().getTotalPlayers();
 
-                String uploader = SessionUtils.getUsername(request);
+            String uploader = SessionUtils.getUsername(request);
 
-                if(uploader == null){
-                    response.sendRedirect("/NinaRow/index.html");
-                }
+            if (uploader == null) {
+                response.sendRedirect("/NinaRow/index.html");
+            }
 
 
-                if (rows < 5 || 50 < rows) {
-                    isLoaded = false;
-                    errorMessage = "Invalid number of rows!";
-                }
+            if (rows < 5 || 50 < rows) {
+                isLoaded = false;
+                errorMessage = "Invalid number of rows!";
+            }
 
-                if (cols < 6 || 30 < cols) {
-                    isLoaded = false;
-                    errorMessage = "Invalid number of columns!";
-                }
+            if (cols < 6 || 30 < cols) {
+                isLoaded = false;
+                errorMessage = "Invalid number of columns!";
+            }
 
-                if (N >= Math.min(rows, cols) || N < 2) {
-                    isLoaded = false;
-                    errorMessage = "Invalid goal(N) value!";
-                }
+            if (N >= Math.min(rows, cols) || N < 2) {
+                isLoaded = false;
+                errorMessage = "Invalid goal(N) value!";
+            }
 
-                if (numOfPlayers < 2 || 6 < numOfPlayers) {
-                    isLoaded = false;
-                    errorMessage =  "Invalid number of players!";
-                }
+            if (numOfPlayers < 2 || 6 < numOfPlayers) {
+                isLoaded = false;
+                errorMessage = "Invalid number of players!";
+            }
 
-            if(gameDescriptor.getGame().getVariant().equals("Circular")){
+            if (gameDescriptor.getGame().getVariant().equals("Circular")) {
                 loadedGame = new CircularGame(N, rows, cols, numOfPlayers, name, uploader);
             } else if (gameDescriptor.getGame().getVariant().equals("Popout")) {
                 loadedGame = new PopoutGame(N, rows, cols, numOfPlayers, name, uploader);
@@ -100,14 +102,20 @@ public class LoadGameServlet extends HttpServlet {
             }
         } catch (Exception e){}
 
-        if(isLoaded) {
-            GameManager gameManager = ServletUtils.getGameManager(getServletContext());
+        if(loadedGame == null){
+            noFile = true;
+            errorMessage = "Please select a file before you hit submit :)";
+        } else {
 
-            gameManager.addGame(loadedGame);
+            if (isLoaded) {
+                GameManager gameManager = ServletUtils.getGameManager(getServletContext());
 
-            System.out.println(loadedGame.getUploader() + "uploaded a game." );
+                gameManager.addGame(loadedGame);
+
+                System.out.println(loadedGame.getUploader() + "uploaded a game.");
+            }
         }
-        GameStatus gameStatus = new GameStatus(isLoaded, errorMessage);
+        GameStatus gameStatus = new GameStatus(isLoaded, errorMessage, noFile);
 
         Gson gson = new Gson();
         String jsonResponse = gson.toJson(gameStatus);
@@ -121,10 +129,12 @@ public class LoadGameServlet extends HttpServlet {
     private class GameStatus {
         final boolean isLoaded;
         final String errorMessage;
+        final boolean noFile;
 
-        private GameStatus(boolean isLoaded, String errorMessage){
+        private GameStatus(boolean isLoaded, String errorMessage, boolean noFile){
             this.isLoaded = isLoaded;
             this.errorMessage = errorMessage;
+            this.noFile = noFile;
         }
     }
 

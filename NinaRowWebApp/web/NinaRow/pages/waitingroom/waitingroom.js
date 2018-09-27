@@ -21,8 +21,6 @@ function redirectToIndexPage(){
 
 
 function refreshGamesList(){
-    // TODO - change button appearance/accessibility according to the number of players
-
     $.getJSON(GAME_LIST_URL, function(data){
         $('#gamesTableBody').empty();
         $(data).each(function(i, game){
@@ -101,36 +99,44 @@ function showStatusBar(){
     });
 }
 
+function clearFileInput(){
+    $('#gameUploadForm').trigger("reset");
+}
+
 $(function() {
     showStatusBar();
     setInterval(ajaxUsersList, refreshRate);
     setInterval(refreshGamesList, refreshRate);
 
-    $('#gameUploadForm').submit(function(){
-       var file = this[0].files[0];
-       var data = new FormData();
-       data.append("fake-key", file);
+    $('#gameUploadForm').submit(function() {
+        var file = this[0].files[0];
+        var data = new FormData();
+        data.append("fake-key", file);
 
-       $.ajax({
-           type: 'POST',
-           url: this.action,
-           enctype:'multipart/form-data',
-           data: data,
-           contentType: false,
-           processData: false,
-           timeout: 4000,
-           success: function(response){
-               if(response.isLoaded){
-                   alert("Load game success!!");
-                   refreshGamesList();
-                   //clearFileInput();
-               } else {
-                   //clearFileInput();
-                   alert(response.errorMessage);
-               }
-           }
+        $.ajax({
+            type: 'POST',
+            url: this.action,
+            enctype: 'multipart/form-data',
+            data: data,
+            contentType: false,
+            processData: false,
+            timeout: 4000,
+            success: function (response) {
+                if(response.noFile){
+                    alert(response.errorMessage)
+                } else {
+                    if (response.isLoaded) {
+                        alert("Load game success!!");
+                        refreshGamesList();
+                        clearFileInput();
+                    } else {
+                        clearFileInput();
+                        alert(response.errorMessage);
+                    }
+                }
+            }
         });
-       return false;
+        return false;
     });
 });
 

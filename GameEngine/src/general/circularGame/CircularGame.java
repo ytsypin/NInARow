@@ -1,10 +1,8 @@
 package general.circularGame;
 
-import Exceptions.ColumnFullException;
-import general.gameBoard.Participant;
+import general.Exceptions.ColumnFullException;
 import general.gameBoard.Turn;
 import general.regularGame.RegularGame;
-import javafx.collections.ObservableList;
 
 public class CircularGame extends RegularGame {
 
@@ -13,7 +11,7 @@ public class CircularGame extends RegularGame {
     }
 
     @Override
-    public Turn getParticipantTurn(int col, int turnType) throws ColumnFullException{
+    public Turn getParticipantTurn(int col, int turnType) throws ColumnFullException {
         Turn turnMade = implementTurn(col);
 
         checkForWinner(turnMade.getRow(), turnMade.getCol(), currentParticipant.getParticipantSymbol());
