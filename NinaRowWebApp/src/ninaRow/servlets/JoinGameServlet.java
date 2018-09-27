@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import java.awt.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -23,9 +24,13 @@ public class JoinGameServlet extends HttpServlet {
 
         UserManager userManager = ServletUtils.getUserManager(getServletContext());
 
-        int gameNumber = (int)request.getAttribute("gameNumber");
+        String gameNumberString = request.getParameter("gameNumber");
+
+        int gameNumber = Integer.parseInt(gameNumberString);
 
         String participantName = SessionUtils.getUsername(request);
+
+        System.out.println(participantName + "Joining game " + gameNumber);
 
         Participant newParticipant = userManager.getParticipant(participantName);
 

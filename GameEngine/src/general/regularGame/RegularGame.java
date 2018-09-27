@@ -455,16 +455,20 @@ public class RegularGame{
     }
 
     public void addParticipant(Participant newParticipant){
-        allParticipants.add(newParticipant);
-        currentParticipants++;
+        if(!isActive) {
+            System.out.println("Adding player " + newParticipant);
+            allParticipants.add(newParticipant);
+            currentParticipants++;
 
-        if(currentParticipants == requiredParticipants){
-            originalParticipants = FXCollections.observableArrayList(allParticipants);
+            if (currentParticipants == requiredParticipants) {
+                originalParticipants = FXCollections.observableArrayList(allParticipants);
+                isActive = true;
+            }
+
+            currentParticipant = allParticipants.get(currentParticipantNumber);
+        } else {
+            System.out.println("Adding spectator " + newParticipant);
         }
-
-        currentParticipant = allParticipants.get(currentParticipantNumber);
-
-        isActive = true;
     }
 
     public class GameDetails{

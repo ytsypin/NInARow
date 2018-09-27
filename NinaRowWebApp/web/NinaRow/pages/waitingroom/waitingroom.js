@@ -34,12 +34,14 @@ function refreshGamesList(){
                .append($("<td>").append(game.goal))
                .append($("<td>").append(game.players))
                .append($("<td>").append(
-                   "<button class='" +
+                   "<button id = 'interact" + i + "' class='" +
                    // If the game isn't active yet players can join the game
                    // Otherwise, players can spectate
-                   (!game.isActive ? "joinGame' id='join" + i + "'>Join Game</button>" : "spectate'>Spectate</button>"))));
+                   (!game.isActive ?
+                       "joinGame'>Join Game</button>" :
+                       "spectate'>Spectate</button>"))));
 
-            var buttonid = 'join'+i;
+            var buttonid = 'interact'+i;
             var buttonElement = document.getElementById(buttonid);
 
             buttonElement.onclick = function(){ return joinGame(i)};
@@ -49,9 +51,12 @@ function refreshGamesList(){
 
 function joinGame(gameNum){
     alert("Joining game" + gameNum + "!");
+
     $.ajax({
-      url: JOIN_GAME_URL,
-      gameNumber: gameNum
+        url: JOIN_GAME_URL,
+        data: {gameNumber: gameNum},
+        dataType: 'json',
+        processData: true
     })
 }
 
