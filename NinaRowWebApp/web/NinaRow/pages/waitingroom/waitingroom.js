@@ -37,7 +37,7 @@ function refreshGamesList(){
                    // Otherwise, players can spectate
                    (!game.isActive ?
                        "joinGame'>Join Game</button>" :
-                       "spectate'>Spectate</button>"))));
+                       "disabled' disabled='disabled'>Running</button>"))));
 
             var buttonid = 'interact'+i;
             var buttonElement = document.getElementById(buttonid);
