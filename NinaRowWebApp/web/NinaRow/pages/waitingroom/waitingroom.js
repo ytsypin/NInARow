@@ -4,7 +4,7 @@ var GAME_LIST_URL = "/NinaRow/gameList";
 var USERNAME_URL = "/NinaRow/username";
 var LOGOUT_URL = "/NinaRow/logout";
 var JOIN_GAME_URL = "/NinaRow/joinGame";
-
+var GAME_ROOM_URL = "/NinaRow/pages/gameroom/gameroom.html";
 
 
 function logoutClicked(){
@@ -53,8 +53,10 @@ function joinGame(gameNum){
     $.ajax({
         url: JOIN_GAME_URL,
         data: {gameNumber: gameNum},
-        dataType: 'json',
-        processData: true
+        processData: true,
+        success: function(r) {
+            window.location.replace(GAME_ROOM_URL);
+        }
     })
 }
 

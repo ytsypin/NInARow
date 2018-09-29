@@ -1,5 +1,6 @@
 package ninaRow.servlets;
 
+import chat.constants.Constants;
 import chat.utils.ServletUtils;
 import chat.utils.SessionUtils;
 import com.google.gson.Gson;
@@ -17,8 +18,12 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class JoinGameServlet extends HttpServlet {
+    private final String GAME_ROOM_URL = "/NinaRow/pages/gameroom/gameroom.html";
+    private final String CHATROOM_URL = "/NinaRow/pages/chatroom/chatroom.html";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException{
+        response.setContentType("application/javascript");
 
         GameManager gameManager = ServletUtils.getGameManager(getServletContext());
 
@@ -28,13 +33,19 @@ public class JoinGameServlet extends HttpServlet {
 
         int gameNumber = Integer.parseInt(gameNumberString);
 
-        String participantName = SessionUtils.getUsername(request);
+        if(!gameManager.isGameActive(gameNumber)) {
+            request.getSession(false).setAttribute(Constants.GAME_NUMBER, gameNumber);
 
-        System.out.println(participantName + "Joining game " + gameNumber);
+            String participantName = SessionUtils.getUsername(request);
 
-        Participant newParticipant = userManager.getParticipant(participantName);
+            System.out.println(participantName + "Joining game " + gameNumber);
 
-        gameManager.addParticipantToGame(gameNumber, newParticipant);
+            Participant newParticipant = userManager.getParticipant(participantName);
+
+            gameManager.addParticipantToGame(gameNumber, newParticipant);
+        } else {
+            response.setStatus(500);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

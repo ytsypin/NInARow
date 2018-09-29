@@ -90,6 +90,9 @@ public class LoginServlet extends HttpServlet {
                         //create a new one
                         request.getSession(true).setAttribute(Constants.USERNAME, usernameFromParameter);
 
+                        // Not in any game yet, set the number -1 as a flag
+                        request.getSession(false).setAttribute(Constants.GAME_NUMBER, -1);
+
                         //redirect the request to the chat room - in order to actually change the URL
                         System.out.println("On login, request URI is: " + request.getRequestURI());
                         response.sendRedirect(WAITING_ROOM_URL);
