@@ -3,7 +3,6 @@ package ninaRow.servlets;
 import chat.constants.Constants;
 import chat.utils.ServletUtils;
 import chat.utils.SessionUtils;
-import com.google.gson.Gson;
 import general.GameManager;
 import general.UserManager;
 import general.gameBoard.Participant;
@@ -12,12 +11,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
-import java.awt.*;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 public class JoinGameServlet extends HttpServlet {
+    private final Object lockObject = new Object();
+
     private final String GAME_ROOM_URL = "/NinaRow/pages/gameroom/gameroom.html";
     private final String CHATROOM_URL = "/NinaRow/pages/chatroom/chatroom.html";
 
@@ -40,9 +38,11 @@ public class JoinGameServlet extends HttpServlet {
 
             System.out.println(participantName + "Joining game " + gameNumber);
 
-            Participant newParticipant = userManager.getParticipant(participantName);
+            synchronized (lockObject) {
+                Participant newParticipant = userManager.getParticipant(participantName);
 
-            gameManager.addParticipantToGame(gameNumber, newParticipant);
+                gameManager.addParticipantToGame(gameNumber, newParticipant);
+            }
         } else {
             response.setStatus(500);
         }

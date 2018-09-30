@@ -5,11 +5,41 @@
     <title>Game Room</title>
     <link rel="stylesheet" href="../../common/bootstrap.min.css">
     <link rel="stylesheet" href="waitingroom.css">
-
-
 </head>
 <body>
+    <div class="topBar">
+        <div class="topBarContent">
+            <span class="usernameSpan"></span>
+            <span class="gameStatus"></span>
+            <span class="gameDetails"></span>
+        </div>
+    </div>
 
+    <div class="mainDiv">
+        <div class="currentTurn"></div>
+        <div class="gameBoard">
+            <div class="boardBody">
+                <div class="topButtons"></div>
+                <div class="board"></div>
+                <div class="bottomButtons"></div>
+            </div>
+        </div>
+        <div class="tableDiv">
+            <table class="playerTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Human?</th>
+                        <th>Turns</th>
+                    </tr>
+                </thead>
+                <tbody id="playerTableBody"></tbody>
+            </table>
+            <button type="button" class="btn btn-danger" id="leaveGame" onclick="onLeaveGame()">Quit</button>
+        </div>
+        <div class="spectators"></div>
+        <div class="chat"></div>
+    </div>
 
 <script src="../../common/jquery-2.0.3.min.js"></script>
 <script src="../../common/context-path-helper.js"></script>
