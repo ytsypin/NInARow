@@ -32,6 +32,10 @@
         <servlet-name>JoinGameServlet</servlet-name>
         <servlet-class>ninaRow.servlets.JoinGameServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>BasicInfoServlet</servlet-name>
+        <servlet-class>ninaRow.servlets.gameServlets.BasicInfoServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UsernameServlet</servlet-name>
         <url-pattern>/NinaRow/username</url-pattern>
@@ -63,5 +67,9 @@
     <servlet-mapping>
         <servlet-name>JoinGameServlet</servlet-name>
         <url-pattern>/NinaRow/joinGame</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BasicInfoServlet</servlet-name>
+        <url-pattern>/NinaRow/game/BasicInfo</url-pattern>
     </servlet-mapping>
 </web-app>

@@ -47,5 +47,13 @@ public class GameManager {
         game.addParticipant(newParticipant);
     }
 
+    public synchronized int getGameType(int gameNum) {
+        return gamesList.get(gameNum).getGameType();
+    }
+
+    public synchronized int getGameGoal(int gameNum) {
+        return  gamesList.get(gameNum).getN();
+    }
+
     //public synchronized int addParticipant
 }
