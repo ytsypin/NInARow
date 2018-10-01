@@ -469,6 +469,10 @@ public class RegularGame{
         }
     }
 
+    public boolean isCurrentParticiapnt(Participant myParticiapnt) {
+        return currentParticipant.equals(myParticiapnt);
+    }
+
     public class GameDetails{
         private String name;
         private String uploader;

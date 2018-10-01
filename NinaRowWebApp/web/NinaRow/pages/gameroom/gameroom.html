@@ -10,7 +10,7 @@
     <div class="topBar">
         <div class="topBarContent">
             <span class="usernameSpan"></span>
-            <span class="gameStatus"></span>
+            <span class="gameStatus" id="gameStatus"></span>
             <div class="gameDetails">
                 <div class="variant"></div>
                 <div class="goal"></div>
@@ -19,7 +19,8 @@
     </div>
 
     <div class="mainDiv">
-        <div class="currentTurn"></div>
+        <div class="currentTurn" id="currentTurn"></div>
+        <div class="myTurn" id="myTurn"></div>
         <div class="gameBoard">
             <div class="boardBody">
                 <div class="topButtons"></div>
@@ -38,7 +39,7 @@
                 </thead>
                 <tbody id="playerTableBody"></tbody>
             </table>
-            <button type="button" class="btn btn-danger" id="leaveGame" onclick="onLeaveGame()">Quit</button>
+            <button type="button" id="leaveGame" class="btn btn-danger" id="leaveGame" onclick="onLeaveGame()">Quit</button>
         </div>
         <div class="spectators"></div>
         <div class="chat"></div>

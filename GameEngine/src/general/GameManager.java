@@ -55,5 +55,11 @@ public class GameManager {
         return  gamesList.get(gameNum).getN();
     }
 
-    //public synchronized int addParticipant
+    public String getCurrentPlayerName(int gameNum) {
+        return gamesList.get(gameNum).getCurrentPlayerName();
+    }
+
+    public boolean isItMyTurn(int gameNum, Participant myParticiapnt) {
+        return gamesList.get(gameNum).isCurrentParticiapnt(myParticiapnt);
+    }
 }

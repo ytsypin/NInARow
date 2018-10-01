@@ -1,5 +1,7 @@
 package general.gameBoard;
 
+import java.util.Objects;
+
 public class Participant{
 
     private String name;
@@ -40,5 +42,21 @@ public class Participant{
     @Override
     public String toString() {
         return name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Participant that = (Participant) o;
+        return isHuman == that.isHuman &&
+                turnsTaken == that.turnsTaken &&
+                participantSymbol == that.participantSymbol &&
+                Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, isHuman, turnsTaken, participantSymbol);
     }
 }
