@@ -77,7 +77,7 @@ function refreshGameBoard(){
                 createBottomButtonRow(cols);
             }
 
-            createBoard(data.board);
+            createBoard(data.board, data.rows, data.cols);
         }
 
     })
@@ -119,6 +119,14 @@ function popoutMove(col){
         data: {col: col},
         processData: true
     })
+}
+
+function createBoard(board, rows, cols){
+    for(var i = 0; i < rows; i++){
+        for(var j = 0; j < cols; j++){
+            // draw the board
+        }
+    }
 }
 
 $(function(){
