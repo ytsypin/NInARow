@@ -3,6 +3,8 @@ var BASIC_INFO_URL = "/NinaRow/game/BasicInfo";
 var CURRENT_STATUS_URL = "/NinaRow/game/CurrentStatus";
 var PLAYER_TABLE_URL = "/NinaRow/game/PlayerTable";
 var GAME_BOARD_URL = "/NinaRow/game/GameBoard";
+var REGULAR_MOVE_URL = "/NinaRow/game/RegularMove";
+var POPOUT_MOVE_URL = "/NinaRow/game/PopoutMove";
 
 function showStatusBar(){
     var name;
@@ -61,6 +63,74 @@ function refreshPlayerTable(){
                 .append($("<td>").append(participant.turns)))
         })
     })
+}
+
+function refreshGameBoard(){
+    $.get({
+        url: GAME_BOARD_URL,
+        success: function(data){
+            var cols = data.cols;
+
+            createTopButtonRow(cols);
+
+            if(data.variant = "Popout"){
+                createBottomButtonRow(cols);
+            }
+
+            createBoard(data.board);
+        }
+
+    })
+}
+
+function createTopButtonRow(cols){
+    for(var i = 0; i < cols; i++){
+        $('#topButtons').append("<button id='regularMove"+i+"' class='moveButton'></button>")
+
+        var buttonid = 'regularMove'+i;
+        var buttonElement = document.getElementById(buttonid);
+
+        buttonElement.onclick = function() { return regularMove(i)};
+    }
+}
+
+function createBottomButtonRow(cols){
+    for(var i = 0; i < cols; i++){
+        $('#topButtons').append("<button id='popoutMove"+i+"' class='moveButton'></button>")
+
+        var buttonid = 'popoutMove'+i;
+        var buttonElement = document.getElementById(buttonid);
+
+        buttonElement.onclick = function() { return popoutMove(i)};
+    }
+}
+
+function regularMove(col){
+    $.ajax({
+        url: REGULAR_MOVE_URL,
+        data: {col: col},
+        processData: true,
+        success: function(r){
+            showWinnerIfFound(r);
+        }
+    })
+}
+
+function popoutMove(col){
+    $.ajax({
+        url: POPOUT_MOVE_URL,
+        data: {col: col},
+        processData: true,
+        success: function(r){
+            showWinnerIfFound(r);
+        }
+    })
+}
+
+function showWinnerIfFound(r){
+    if(r.winnerFound){
+        // display winner to all users
+    }
 }
 
 $(function(){

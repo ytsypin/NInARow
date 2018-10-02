@@ -473,6 +473,25 @@ public class RegularGame{
         return currentParticipant.equals(myParticiapnt);
     }
 
+    public GameRepresentation getRepresentation(){
+        int rows = this.gameBoard.getRows();
+        int cols = this.gameBoard.getCols();
+
+        String variant;
+
+        if(this.getGameType() == RegularGame.regularGame){
+            variant = "Regular";
+        } else if (this.getGameType() == RegularGame.popoutGame){
+            variant = "Popout";
+        } else {
+            variant = "Circular";
+        }
+
+        int[][] board = gameBoard.getBoardTiles();
+
+        return new GameRepresentation(rows, cols, variant, board);
+    }
+
     public class GameDetails{
         private String name;
         private String uploader;
@@ -488,6 +507,20 @@ public class RegularGame{
             this.goal = Integer.toString(goal);
             players = Integer.toString(currentPlayers) + "\\" + Integer.toString(requiredPlayers);
             this.isActive = isActive;
+        }
+    }
+
+    public class GameRepresentation{
+        private int rows;
+        private int cols;
+        private String variant;
+        private int[][] board;
+
+        private GameRepresentation(int rows, int cols, String variant, int[][] board){
+            this.rows = rows;
+            this.cols = cols;
+            this.variant = variant;
+            this.board = board;
         }
     }
 }
