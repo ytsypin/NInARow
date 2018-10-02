@@ -40,6 +40,10 @@
         <servlet-name>CurrentStatusServlet</servlet-name>
         <servlet-class>ninaRow.servlets.gameServlets.CurrentStatusServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PlayerTableServlet</servlet-name>
+        <servlet-class>ninaRow.servlets.gameServlets.PlayerTableServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UsernameServlet</servlet-name>
         <url-pattern>/NinaRow/username</url-pattern>
@@ -79,5 +83,9 @@
     <servlet-mapping>
         <servlet-name>CurrentStatusServlet</servlet-name>
         <url-pattern>/NinaRow/game/CurrentStatus</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PlayerTableServlet</servlet-name>
+        <url-pattern>/NinaRow/game/PlayerTable</url-pattern>
     </servlet-mapping>
 </web-app>

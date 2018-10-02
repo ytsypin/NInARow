@@ -62,4 +62,8 @@ public class GameManager {
     public boolean isItMyTurn(int gameNum, Participant myParticiapnt) {
         return gamesList.get(gameNum).isCurrentParticiapnt(myParticiapnt);
     }
+
+    public List<Participant> getListOfParticipants(int gameNum) {
+        return gamesList.get(gameNum).getParticipants();
+    }
 }

@@ -51,6 +51,18 @@ function refreshCurrentStatus(){
     })
 }
 
+function refreshPlayerTable(){
+    $.getJSON(PLAYER_TABLE_URL, function(data){
+        $('#playerTableBody').empty();
+        $(data).each(function(i, participant){
+            $('#playerTableBody').append($("<tr>")
+                .append($("<td>").append(participant.name))
+                .append($("<td>").append(participant.isHuman))
+                .append($("<td>").append(participant.turns)))
+        })
+    })
+}
+
 $(function(){
     showStatusBar();
     setInterval(refreshCurrentStatus, refreshRate);
