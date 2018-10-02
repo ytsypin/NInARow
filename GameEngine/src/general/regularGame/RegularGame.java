@@ -445,7 +445,7 @@ public class RegularGame{
     }
 
     public GameDetails getGameForAjax(){
-        return new GameDetails(gameName, uploader, getRows(), getCols(), getN(), currentParticipants, requiredParticipants, isActive);
+        return new GameDetails(gameName, uploader, getRows(), getCols(), getN(), currentParticipants, requiredParticipants, isActive, this.getGameType());
     }
 
     public String getUploader() {
@@ -492,21 +492,34 @@ public class RegularGame{
         return new GameRepresentation(rows, cols, variant, board);
     }
 
+    public int[][] getGameBoard() {
+        return gameBoard.getBoardTiles();
+    }
+
     public class GameDetails{
         private String name;
         private String uploader;
+        private String variant;
         private String players;
         private String dimensions;
         private String goal;
         private boolean isActive;
 
-        private GameDetails(String name, String uploader, int rows, int cols, int goal, int currentPlayers, int requiredPlayers, boolean isActive){
+        private GameDetails(String name, String uploader, int rows, int cols, int goal, int currentPlayers, int requiredPlayers, boolean isActive, int gameType){
             this.name = name;
             this.uploader = uploader;
             dimensions = Integer.toString(rows) + " x " + Integer.toString(cols);
             this.goal = Integer.toString(goal);
             players = Integer.toString(currentPlayers) + "\\" + Integer.toString(requiredPlayers);
             this.isActive = isActive;
+
+            if(gameType == RegularGame.popoutGame){
+                variant = "Popout";
+            } else if (gameType == RegularGame.regularGame){
+                variant = "Regular";
+            } else {
+                variant = "Circular";
+            }
         }
     }
 

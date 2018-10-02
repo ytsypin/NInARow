@@ -25,14 +25,15 @@ function refreshGamesList(){
         $('#gamesTableBody').empty();
         $(data).each(function(i, game){
             $('#gamesTableBody').append($("<tr>")
-               .append($("<td>").append(i+1))
-               .append($("<td>").append(game.name))
-               .append($("<td>").append(game.uploader))
-               .append($("<td>").append(game.dimensions))
-               .append($("<td>").append(game.goal))
-               .append($("<td>").append(game.players))
-               .append($("<td>").append(
-                   "<button id = 'interact" + i + "' class='" +
+                .append($("<td>").append(i+1))
+                .append($("<td>").append(game.name))
+                .append($("<td>").append(game.variant))
+                .append($("<td>").append(game.uploader))
+                .append($("<td>").append(game.dimensions))
+                .append($("<td>").append(game.goal))
+                .append($("<td>").append(game.players))
+                .append($("<td>").append(
+                    "<button id = 'interact" + i + "' class='" +
                    // If the game isn't active yet players can join the game
                    // Otherwise, players can spectate
                    (!game.isActive ?

@@ -38,15 +38,17 @@ function refreshCurrentStatus(){
             gameStatus = json.isActive? "In Progress" : "Waiting For Players";
             $('#gameStatus').text(gameStatus);
 
-            currentPlayerName = json.currentPlayerName;
-            $('#currentTurn').text(currentPlayerName);
+            if(json.isActive){
+                currentPlayerName = json.currentPlayerName;
+                $('#currentTurn').text(currentPlayerName);
 
-            if(json.myTurn && json.isActive){
-                $('#myTurn').text("It's now your turn!");
-                $('#leaveGame').enable();
-            } else {
-                $('#leaveGame').disable()
-                $('#myTurn').text("");
+                if(json.myTurn){
+                    $('#myTurn').text("It's now your turn!");
+                    $('#leaveGame').enable();
+                } else {
+                    $('#leaveGame').disable()
+                    $('#myTurn').text("");
+                }
             }
         }
     })
@@ -65,17 +67,16 @@ function refreshPlayerTable(){
 }
 
 function refreshGameBoard(){
-    $.get({
+    $.ajax({
         url: GAME_BOARD_URL,
         success: function(data){
             var cols = data.cols;
-
+            
             createTopButtonRow(cols);
 
             if(data.variant = "Popout"){
                 createBottomButtonRow(cols);
             }
-
             createBoard(data.board, data.rows, data.cols);
         }
 
@@ -83,8 +84,10 @@ function refreshGameBoard(){
 }
 
 function createTopButtonRow(cols){
+    $('#topButtons').empty();
+
     for(var i = 0; i < cols; i++){
-        $('#topButtons').append("<button id='regularMove"+i+"' class='moveButton'></button>")
+        $('#topButtons').append("<button id='regularMove"+i+"' class='moveButton'>regular</button>")
 
         var buttonid = 'regularMove'+i;
         var buttonElement = document.getElementById(buttonid);
@@ -94,8 +97,10 @@ function createTopButtonRow(cols){
 }
 
 function createBottomButtonRow(cols){
+    $('#bottomButtons').empty();
+
     for(var i = 0; i < cols; i++){
-        $('#topButtons').append("<button id='popoutMove"+i+"' class='moveButton'></button>")
+        $('#topButtons').append("<button id='popoutMove"+i+"' class='moveButton'>popout</button>")
 
         var buttonid = 'popoutMove'+i;
         var buttonElement = document.getElementById(buttonid);

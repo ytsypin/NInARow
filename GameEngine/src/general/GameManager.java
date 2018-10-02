@@ -66,4 +66,16 @@ public class GameManager {
     public List<Participant> getListOfParticipants(int gameNum) {
         return gamesList.get(gameNum).getParticipants();
     }
+
+    public int[][] getGameBoard(int gameNum) {
+        return gamesList.get(gameNum).getGameBoard();
+    }
+
+    public int getColumns(int gameNum) {
+        return gamesList.get(gameNum).getCols();
+    }
+
+    public int getRows(int gameNum) {
+        return gamesList.get(gameNum).getRows();
+    }
 }
