@@ -34,8 +34,6 @@ function refreshGamesList(){
                 .append($("<td>").append(game.players))
                 .append($("<td>").append(
                     "<button id = 'interact" + i + "' class='" +
-                   // If the game isn't active yet players can join the game
-                   // Otherwise, players can spectate
                    (!game.isActive ?
                        "joinGame'>Join Game</button>" :
                        "disabled' disabled='disabled'>Running</button>"))));

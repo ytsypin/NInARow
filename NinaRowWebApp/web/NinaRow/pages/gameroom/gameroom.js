@@ -71,10 +71,10 @@ function refreshGameBoard(){
         url: GAME_BOARD_URL,
         success: function(data){
             var cols = data.cols;
-            
+
             createTopButtonRow(cols);
 
-            if(data.variant = "Popout"){
+            if(data.variant === "Popout"){
                 createBottomButtonRow(cols);
             }
             createBoard(data.board, data.rows, data.cols);
