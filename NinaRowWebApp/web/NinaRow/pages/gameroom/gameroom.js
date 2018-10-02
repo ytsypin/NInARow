@@ -109,7 +109,7 @@ function regularMove(col){
     $.ajax({
         url: REGULAR_MOVE_URL,
         data: {col: col},
-        processData: true,
+        processData: true
     })
 }
 
@@ -117,7 +117,7 @@ function popoutMove(col){
     $.ajax({
         url: POPOUT_MOVE_URL,
         data: {col: col},
-        processData: true,
+        processData: true
     })
 }
 
