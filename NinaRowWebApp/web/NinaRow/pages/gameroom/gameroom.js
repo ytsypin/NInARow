@@ -110,9 +110,6 @@ function regularMove(col){
         url: REGULAR_MOVE_URL,
         data: {col: col},
         processData: true,
-        success: function(r){
-            showWinnerIfFound(r);
-        }
     })
 }
 
@@ -121,16 +118,7 @@ function popoutMove(col){
         url: POPOUT_MOVE_URL,
         data: {col: col},
         processData: true,
-        success: function(r){
-            showWinnerIfFound(r);
-        }
     })
-}
-
-function showWinnerIfFound(r){
-    if(r.winnerFound){
-        // display winner to all users
-    }
 }
 
 $(function(){
