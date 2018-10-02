@@ -41,8 +41,7 @@ function refreshCurrentStatus(){
             currentPlayerName = json.currentPlayerName;
             $('#currentTurn').text(currentPlayerName);
 
-            if(json.myTurn){
-                alert("It is now your turn to play!");
+            if(json.myTurn && json.isActive){
                 $('#myTurn').text("It's now your turn!");
                 $('#leaveGame').enable();
             } else {
@@ -59,7 +58,7 @@ function refreshPlayerTable(){
         $(data).each(function(i, participant){
             $('#playerTableBody').append($("<tr>")
                 .append($("<td>").append(participant.name))
-                .append($("<td>").append(participant.isHuman))
+                .append($("<td>").append(participant.isHuman ? "Yes" : "No"))
                 .append($("<td>").append(participant.turns)))
         })
     })

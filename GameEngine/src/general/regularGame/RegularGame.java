@@ -316,8 +316,8 @@ public class RegularGame{
         return regularGame;
     }
 
-    public ObservableList<Participant> getParticipants() {
-        return (ObservableList<Participant>) allParticipants;
+    public List<Participant> getParticipants() {
+        return  allParticipants;
     }
 
     public Turn getParticipantTurn(int col, int turnType) throws ColumnFullException, CantPopoutException {

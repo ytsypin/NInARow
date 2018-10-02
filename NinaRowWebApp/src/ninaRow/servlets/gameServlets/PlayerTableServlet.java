@@ -45,7 +45,6 @@ public class PlayerTableServlet extends HttpServlet {
             String json = gson.toJson(info);
 
             out.println(json);
-
             out.flush();
         }
     }
