@@ -496,6 +496,16 @@ public class RegularGame{
         return gameBoard.getBoardTiles();
     }
 
+    public List<String> getWinnerNames() {
+        List<String> winnerNames = new ArrayList<>();
+
+        for(Participant participant : winners){
+            winnerNames.add(participant.getName());
+        }
+
+        return winnerNames;
+    }
+
     public class GameDetails{
         private String name;
         private String uploader;

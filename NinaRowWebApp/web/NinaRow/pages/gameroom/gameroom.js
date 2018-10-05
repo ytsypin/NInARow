@@ -49,6 +49,8 @@ function refreshCurrentStatus(){
                     $('#leaveGame').disable()
                     $('#myTurn').text("");
                 }
+            } else if(json.isWinnerFound){ // TODO - Take care of situation when winner is found
+                alert(json.winnerNames + " Won!");
             }
         }
     })
@@ -126,10 +128,32 @@ function popoutMove(col){
 }
 
 function createBoard(board, rows, cols){
+    var body = $('#board');
+
+    body.empty();
+
     for(var i = 0; i < rows; i++){
+        rowDiv = $(document.createElement('div'));
+        rowDiv.addClass('rowDiv');
+        rowCells = $(document.createElement('div'));
+        rowCells.addClass('rowCells');
+        rowCells.appendTo(rowDiv);
+
         for(var j = 0; j < cols; j++){
-            // draw the board
+            squareDiv = $(document.createElement('div'));
+            squareDiv.addClass('cell');
+            squareDiv.appendTo(rowCells);
+
+            color = board[i][j];
+            if(color !== 0){
+                squareDiv.addClass('player'+color);
+            } else {
+                squareDiv.addClass("empty");
+            }
+
         }
+
+        rowDiv.appendTo(body);
     }
 }
 

@@ -78,4 +78,12 @@ public class GameManager {
     public int getRows(int gameNum) {
         return gamesList.get(gameNum).getRows();
     }
+
+    public boolean isWinnerFound(int gameNum) {
+        return gamesList.get(gameNum).isWinnerFound();
+    }
+
+    public List<String> getWinnerNames(int gameNum) {
+        return gamesList.get(gameNum).getWinnerNames();
+    }
 }

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 public class CurrentStatusServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -41,7 +42,11 @@ public class CurrentStatusServlet extends HttpServlet {
 
         boolean myTurn = gameManager.isItMyTurn(gameNum, myParticiapnt);
 
-        CurrentStatusInfo info = new CurrentStatusInfo(isActive, currentPlayerName, myTurn);
+        boolean isWinnerFound = gameManager.isWinnerFound(gameNum);
+
+        List<String> winnerNames = isWinnerFound? gameManager.getWinnerNames(gameNum) : null;
+
+        CurrentStatusInfo info = new CurrentStatusInfo(isActive, currentPlayerName, myTurn, isWinnerFound, winnerNames);
 
         Gson gson = new Gson();
         String jsonResponse = gson.toJson(info);
@@ -57,11 +62,15 @@ public class CurrentStatusServlet extends HttpServlet {
         final boolean isActive;
         final String currentPlayerName;
         final boolean myTurn;
+        final boolean isWinnerFound;
+        final List<String> winnerNames;
 
-        public CurrentStatusInfo(boolean isActive, String currentPlayerName, boolean myTurn){
+        public CurrentStatusInfo(boolean isActive, String currentPlayerName, boolean myTurn, boolean isWinnerFound, List<String> winnerNames){
             this.isActive = isActive;
             this.currentPlayerName = currentPlayerName;
             this.myTurn = myTurn;
+            this.isWinnerFound = isWinnerFound;
+            this.winnerNames = winnerNames;
         }
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -1,0 +1,33 @@
+.cell{
+    display: inline-block;
+    border: 1px black solid;
+    width: 30px;
+    height: 30px;
+
+    -webkit-border-radius: 80px;
+    border-radius: 80px;
+}
+
+.player1{
+    background-color: #204d74;
+}
+
+.player2{
+    background-color: #449d44;
+}
+
+.player3{
+    background-color: #ac2925;
+}
+
+.player4{
+    background-color: #d58512;
+}
+
+.player5{
+    background-color: yellow;
+}
+
+.player6{
+    background-color: cyan;
+}
