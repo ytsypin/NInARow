@@ -3,6 +3,7 @@ package ninaRow.servlets.gameServlets;
 import chat.constants.Constants;
 import chat.utils.ServletUtils;
 import chat.utils.SessionUtils;
+import com.google.gson.Gson;
 import general.GameManager;
 import general.UserManager;
 import general.gameBoard.Participant;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 public class RegularMoveServlet extends HttpServlet {
     private final Object lockObject = new Object();
@@ -29,8 +31,29 @@ public class RegularMoveServlet extends HttpServlet {
 
         int column = Integer.parseInt(columnString);
 
+        System.out.println("Making regular move column " + column);
+
         String result = gameManager.makeRegularMove((int)request.getSession(false).getAttribute(Constants.GAME_NUMBER), column);
+
+        MoveStatus moveStatus = new MoveStatus(result);
+
+        Gson gson = new Gson();
+        String jsonResponse = gson.toJson(moveStatus);
+
+        try(PrintWriter out = response.getWriter()){
+            out.print(jsonResponse);
+            out.flush();
+        }
     }
+
+    public static class MoveStatus{
+        String result;
+
+        public MoveStatus(String result){
+            this.result = result;
+        }
+    }
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

@@ -48,6 +48,14 @@
         <servlet-name>GameBoardServlet</servlet-name>
         <servlet-class>ninaRow.servlets.gameServlets.GameBoardServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RegularMoveServlet</servlet-name>
+        <servlet-class>ninaRow.servlets.gameServlets.RegularMoveServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PopoutMoveServlet</servlet-name>
+        <servlet-class>ninaRow.servlets.gameServlets.PopoutMoveServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UsernameServlet</servlet-name>
         <url-pattern>/NinaRow/username</url-pattern>
@@ -95,5 +103,13 @@
     <servlet-mapping>
         <servlet-name>GameBoardServlet</servlet-name>
         <url-pattern>/NinaRow/game/GameBoard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegularMoveServlet</servlet-name>
+        <url-pattern>/NinaRow/game/RegularMove</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PopoutMoveServlet</servlet-name>
+        <url-pattern>/NinaRow/game/PopoutMove</url-pattern>
     </servlet-mapping>
 </web-app>

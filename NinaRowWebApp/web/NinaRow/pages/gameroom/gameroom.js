@@ -44,13 +44,15 @@ function refreshCurrentStatus(){
 
                 if(json.myTurn){
                     $('#myTurn').text("It's now your turn!");
-                    $('#leaveGame').enable();
+                    $('#leaveGame').prop('disabled',false);
+                    $('.moveButton').prop('disabled',false);
                 } else {
-                    $('#leaveGame').disable()
+                    $('#leaveGame').prop('disabled',true);
+                    $('.moveButton').prop('disabled',true);
                     $('#myTurn').text("");
                 }
-            } else if(json.isWinnerFound){ // TODO - Take care of situation when winner is found
-                alert(json.winnerNames + " Won!");
+            } else {
+                $('.moveButton').prop('disabled', true);
             }
         }
     })
@@ -91,10 +93,14 @@ function createTopButtonRow(cols){
     for(var i = 0; i < cols; i++){
         $('#topButtons').append("<button id='regularMove"+i+"' class='moveButton'>regular</button>")
 
-        var buttonid = 'regularMove'+i;
+        var buttonid = 'regularMove' + i;
         var buttonElement = document.getElementById(buttonid);
 
-        buttonElement.onclick = function() { return regularMove(i)};
+        buttonElement.onclick = function (col) {
+            return function () {
+                return regularMove(col);
+            };
+        }(i);
     }
 }
 
@@ -112,10 +118,21 @@ function createBottomButtonRow(cols){
 }
 
 function regularMove(col){
+    alert("Making regular move column " + col);
+
     $.ajax({
         url: REGULAR_MOVE_URL,
         data: {column: col},
-        processData: true
+        processData: true,
+        success: function(result){
+            if(result.result === "Column Full"){
+                $('#messageArea').text("Column is full! Please select a valid move.");
+            } else if(result.result === "Error"){
+                $('#messageArea').text("Unspecified error occured");
+            } else {
+                $('#messageArea').text("");
+            }
+        }
     })
 }
 
@@ -123,7 +140,17 @@ function popoutMove(col){
     $.ajax({
         url: POPOUT_MOVE_URL,
         data: {column: col},
-        processData: true
+        processData: true,
+        success: function(result){
+            if(result.result === "Column Full"){
+                $('#messageArea').text("Column is full! Please select a different column.");
+            } else if(result.result === "Cant Popout"){
+                $('#messageArea').text("Can't popout selected column! Please select a valid move.");
+            } else {
+                $('#messageArea').text("");
+            }
+
+        }
     })
 }
 

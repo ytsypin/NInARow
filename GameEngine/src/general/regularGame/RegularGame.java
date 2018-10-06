@@ -453,6 +453,8 @@ public class RegularGame{
     }
 
     public void addParticipant(Participant newParticipant){
+        newParticipant.setParticipantSymbol(allParticipants.size()+1);
+
         if(!isActive) {
             System.out.println("Adding player " + newParticipant);
             allParticipants.add(newParticipant);

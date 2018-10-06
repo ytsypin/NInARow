@@ -39,6 +39,10 @@ public class Participant{
         turnsTaken = 0;
     }
 
+    public void setParticipantSymbol(int symbol){
+        this.participantSymbol = symbol;
+    }
+
     @Override
     public String toString() {
         return name;
