@@ -506,6 +506,57 @@ public class RegularGame{
         return winnerNames;
     }
 
+    public void makeRegularMove(int column) throws ColumnFullException, CantPopoutException {
+        Turn turn = getParticipantTurn(column, Turn.addDisk);
+
+        if(isWinnerFound()){
+            deactivateGame();
+        } else {
+            if(drawReached()){
+                deactivateGame();
+            } else {
+                changeCurrentParticipant();
+            }
+        }
+
+        if(isCurrentParticipantBot() && getIsActive()){
+            makeBotMove();
+        }
+    }
+
+    public void makePopoutMove(int column) throws ColumnFullException, CantPopoutException {
+        Turn turn = getParticipantTurn(column, Turn.removeDisk);
+
+        if(isWinnerFound()){
+            if(getWinners().size() == 1){
+                // single winner
+            } else {
+                // multiple winners
+            }
+            deactivateGame();
+        } else {
+            if(drawReached()){
+                deactivateGame();
+            } else {
+                changeCurrentParticipant();
+            }
+        }
+
+        if(isCurrentParticipantBot() && getIsActive()){
+            makeBotMove();
+        }
+    }
+
+    public void makeBotMove(){
+        while(isCurrentParticipantBot() && getIsActive()){
+            Turn turn = getBotTurn();
+
+            if(isWinnerFound() || drawReached()){
+                deactivateGame();
+            }
+        }
+    }
+
     public class GameDetails{
         private String name;
         private String uploader;

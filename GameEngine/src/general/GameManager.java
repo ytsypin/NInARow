@@ -1,5 +1,7 @@
 package general;
 
+import general.Exceptions.CantPopoutException;
+import general.Exceptions.ColumnFullException;
 import general.gameBoard.Participant;
 import general.regularGame.RegularGame;
 import resources.generated.GameDescriptor;
@@ -85,5 +87,33 @@ public class GameManager {
 
     public List<String> getWinnerNames(int gameNum) {
         return gamesList.get(gameNum).getWinnerNames();
+    }
+
+    public String makeRegularMove(int gameNum, int column) {
+        String result;
+        try {
+            gamesList.get(gameNum).makeRegularMove(column);
+            result = "OK";
+        } catch (ColumnFullException e) {
+            result = "Column Full";
+        } catch (CantPopoutException e) {
+            result = "Error";
+        }
+
+        return result;
+    }
+
+    public String makePopoutMove(int gameNum, int column) {
+        String result;
+        try {
+            gamesList.get(gameNum).makePopoutMove(column);
+            result = "OK";
+        } catch (ColumnFullException e) {
+            result = "Column Full";
+        } catch (CantPopoutException e) {
+            result = "Cant Popout";
+        }
+
+        return result;
     }
 }

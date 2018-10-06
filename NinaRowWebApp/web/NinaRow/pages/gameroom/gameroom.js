@@ -114,7 +114,7 @@ function createBottomButtonRow(cols){
 function regularMove(col){
     $.ajax({
         url: REGULAR_MOVE_URL,
-        data: {col: col},
+        data: {column: col},
         processData: true
     })
 }
@@ -122,7 +122,7 @@ function regularMove(col){
 function popoutMove(col){
     $.ajax({
         url: POPOUT_MOVE_URL,
-        data: {col: col},
+        data: {column: col},
         processData: true
     })
 }
