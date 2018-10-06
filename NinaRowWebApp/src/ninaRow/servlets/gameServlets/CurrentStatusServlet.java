@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CurrentStatusServlet extends HttpServlet {
@@ -44,7 +45,7 @@ public class CurrentStatusServlet extends HttpServlet {
 
         boolean isWinnerFound = gameManager.isWinnerFound(gameNum);
 
-        List<String> winnerNames = isWinnerFound? gameManager.getWinnerNames(gameNum) : null;
+        List<String> winnerNames = isWinnerFound? gameManager.getWinnerNames(gameNum) : new ArrayList<>();
 
         CurrentStatusInfo info = new CurrentStatusInfo(isActive, currentPlayerName, myTurn, isWinnerFound, winnerNames);
 
@@ -64,6 +65,7 @@ public class CurrentStatusServlet extends HttpServlet {
         final boolean myTurn;
         final boolean isWinnerFound;
         final List<String> winnerNames;
+        final boolean severalWinners;
 
         public CurrentStatusInfo(boolean isActive, String currentPlayerName, boolean myTurn, boolean isWinnerFound, List<String> winnerNames){
             this.isActive = isActive;
@@ -71,6 +73,7 @@ public class CurrentStatusServlet extends HttpServlet {
             this.myTurn = myTurn;
             this.isWinnerFound = isWinnerFound;
             this.winnerNames = winnerNames;
+            this.severalWinners = winnerNames.size() > 1 ? true : false;
         }
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

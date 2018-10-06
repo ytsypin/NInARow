@@ -5,6 +5,7 @@ var PLAYER_TABLE_URL = "/NinaRow/game/PlayerTable";
 var GAME_BOARD_URL = "/NinaRow/game/GameBoard";
 var REGULAR_MOVE_URL = "/NinaRow/game/RegularMove";
 var POPOUT_MOVE_URL = "/NinaRow/game/PopoutMove";
+var WAITING_ROOM = "/NinaRow/pages/waitingroom/waitingroom.html";
 
 function showStatusBar(){
     var name;
@@ -36,6 +37,11 @@ function refreshCurrentStatus(){
         type: 'GET',
         success: function(json){
             gameStatus = json.isActive? "In Progress" : "Waiting For Players";
+
+            if(json.isActive){
+                $('#gameStarted').text("The game has started!");
+            }
+
             $('#gameStatus').text(gameStatus);
 
             if(json.isActive){
@@ -49,7 +55,21 @@ function refreshCurrentStatus(){
                     $('#leaveGame').prop('disabled',true);
                     $('#myTurn').text("");
                 }
+            } else {
+                if(json.isWinnerFound){
+                    if(json.severalWinners){
+                        $('#winnerArea').text("Several winners found - " + json.winnerNames);
+                    } else {
+                        $('#winnerArea').text("Winner found - " + json.winnerNames);
+                    }
+
+                    setTimeout(function() {
+                        alert("Winner found, redirecting back to game lobby!");
+                        window.location.replace(WAITING_ROOM);
+                        }, 5000);
+                }
             }
+
         }
     })
 }

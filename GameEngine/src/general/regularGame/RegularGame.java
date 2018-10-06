@@ -21,7 +21,6 @@ public class RegularGame{
     protected boolean winnerFound = false;
     protected boolean isActive = false;
     protected List<Participant> allParticipants;
-    protected List<Participant> originalParticipants;
     protected Participant currentParticipant = null;
     private int currentParticipantNumber = 0;
     protected static int noMove = -1;
@@ -338,9 +337,13 @@ public class RegularGame{
         if(winners != null) {
             winners.clear();
         }
+
         for(Participant participant : allParticipants){
             participant.clearTurns();
         }
+
+        allParticipants.clear();
+
     }
 
     public boolean drawReached() {
@@ -375,12 +378,7 @@ public class RegularGame{
 
     public void deactivateGame() {
         isActive = false;
-    }
-
-    public void resetTurns() {
-        allParticipants = FXCollections.observableArrayList(originalParticipants);
-        currentParticipantNumber = 0;
-        currentParticipant = allParticipants.get(currentParticipantNumber);
+        clearGame();
     }
 
     public int getCurrentPlayerSymbol() {
@@ -461,13 +459,19 @@ public class RegularGame{
             currentParticipants++;
 
             if (currentParticipants == requiredParticipants) {
-                originalParticipants = FXCollections.observableArrayList(allParticipants);
-                isActive = true;
+                activateGame();
             }
-
-            currentParticipant = allParticipants.get(currentParticipantNumber);
         } else {
             System.out.println("Adding spectator " + newParticipant);
+        }
+    }
+
+    private void activateGame() {
+        isActive = true;
+        currentParticipant = allParticipants.get(0);
+
+        if(!currentParticipant.getIsHuman()){
+            makeBotMove();
         }
     }
 
@@ -530,11 +534,6 @@ public class RegularGame{
         Turn turn = getParticipantTurn(column, Turn.removeDisk);
 
         if(isWinnerFound()){
-            if(getWinners().size() == 1){
-                // single winner
-            } else {
-                // multiple winners
-            }
             deactivateGame();
         } else {
             if(drawReached()){

@@ -31,6 +31,8 @@ public class PopoutMoveServlet extends HttpServlet {
 
         int column = Integer.parseInt(columnString);
 
+        System.out.println("Making popout move column " + column);
+
         String result = gameManager.makePopoutMove((int)request.getSession(false).getAttribute(Constants.GAME_NUMBER), column);
 
         RegularMoveServlet.MoveStatus moveStatus = new RegularMoveServlet.MoveStatus(result);
