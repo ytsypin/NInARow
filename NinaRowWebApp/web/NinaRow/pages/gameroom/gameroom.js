@@ -45,14 +45,10 @@ function refreshCurrentStatus(){
                 if(json.myTurn){
                     $('#myTurn').text("It's now your turn!");
                     $('#leaveGame').prop('disabled',false);
-                    $('.moveButton').prop('disabled',false);
                 } else {
                     $('#leaveGame').prop('disabled',true);
-                    $('.moveButton').prop('disabled',true);
                     $('#myTurn').text("");
                 }
-            } else {
-                $('.moveButton').prop('disabled', true);
             }
         }
     })
@@ -82,6 +78,12 @@ function refreshGameBoard(){
                 createBottomButtonRow(cols);
             }
             createBoard(data.board, data.rows, data.cols);
+
+            if(data.myTurn){
+                $('.moveButton').prop('disabled',false).css('opacity', 1);
+            } else {
+                $('.moveButton').prop('disabled',true).css('opacity', 0.5);
+            }
         }
 
     })

@@ -559,6 +559,14 @@ public class RegularGame{
         }
     }
 
+    public boolean getIsMyTurn(String name) {
+        if(!isActive){
+            return false;
+        } else {
+            return currentParticipant.getName().equals(name);
+        }
+    }
+
     public class GameDetails{
         private String name;
         private String uploader;

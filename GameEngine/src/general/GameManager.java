@@ -116,4 +116,8 @@ public class GameManager {
 
         return result;
     }
+
+    public boolean getIfMyTurn(int gameNum, String name) {
+        return gamesList.get(gameNum).getIsMyTurn(name);
+    }
 }

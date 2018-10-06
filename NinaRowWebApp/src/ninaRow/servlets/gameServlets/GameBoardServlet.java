@@ -24,11 +24,14 @@ public class GameBoardServlet extends HttpServlet {
 
         int gameNum = (int)request.getSession(false).getAttribute(Constants.GAME_NUMBER);
 
+        String name = (String)request.getSession(false).getAttribute(Constants.USERNAME);
+
         int[][] board = gameManager.getGameBoard(gameNum);
         int cols = gameManager.getColumns(gameNum);
         int rows = gameManager.getRows(gameNum);
+        boolean myTurn = gameManager.getIfMyTurn(gameNum, name);
 
-        GameBoardData info = new GameBoardData(cols, rows, board);
+        GameBoardData info = new GameBoardData(cols, rows, board, myTurn);
 
         Gson gson = new Gson();
         String jsonResponse = gson.toJson(info);
@@ -44,11 +47,13 @@ public class GameBoardServlet extends HttpServlet {
         int cols;
         int rows;
         int[][] board;
+        boolean myTurn;
 
-        public GameBoardData(int cols, int rows, int[][] board){
+        public GameBoardData(int cols, int rows, int[][] board, boolean myTurn){
             this.cols = cols;
             this.rows = rows;
             this.board = board;
+            this.myTurn = myTurn;
         }
     }
 
