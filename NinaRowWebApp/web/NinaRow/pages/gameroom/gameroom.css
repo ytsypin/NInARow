@@ -1,11 +1,11 @@
 .cell{
     display: inline-block;
     border: 1px black solid;
-    width: 30px;
-    height: 30px;
+    width: 60px;
+    height: 60px;
 
-    -webkit-border-radius: 80px;
-    border-radius: 80px;
+    -webkit-border-radius: 30px;
+    border-radius: 30px;
 }
 
 .player1{

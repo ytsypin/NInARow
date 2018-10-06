@@ -41,6 +41,12 @@ function refreshGamesList(){
             var buttonid = 'interact'+i;
             var buttonElement = document.getElementById(buttonid);
 
+            if(game.isActive){
+                buttonElement.opacity(0.5);
+            } else {
+                buttonElement.opacity(1);
+            }
+
             buttonElement.onclick = function(){ return joinGame(i)};
         })
     });

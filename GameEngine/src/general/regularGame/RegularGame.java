@@ -96,7 +96,6 @@ public class RegularGame{
                 currentParticipant.addTurnPlayed();
             }
         } else {
-            // TODO - Take care of full column
             throw new ColumnFullException();
         }
         return currTurn;
@@ -328,7 +327,7 @@ public class RegularGame{
     }
 
     public String getCurrentPlayerName() {
-        return currentParticipant.getName();
+        return currentParticipant.getName() == null? "" : currentParticipant.getName();
     }
 
     public void clearGame() {
@@ -377,7 +376,6 @@ public class RegularGame{
     }
 
     public void deactivateGame() {
-        isActive = false;
         clearGame();
     }
 
@@ -458,6 +456,9 @@ public class RegularGame{
             allParticipants.add(newParticipant);
             currentParticipants++;
 
+            if( currentParticipant == null) {
+                currentParticipant = allParticipants.get(0);
+            }
             if (currentParticipants == requiredParticipants) {
                 activateGame();
             }
@@ -515,14 +516,10 @@ public class RegularGame{
     public void makeRegularMove(int column) throws ColumnFullException, CantPopoutException {
         Turn turn = getParticipantTurn(column, Turn.addDisk);
 
-        if(isWinnerFound()){
-            deactivateGame();
+        if(!isWinnerFound()){
+            changeCurrentParticipant();
         } else {
-            if(drawReached()){
-                deactivateGame();
-            } else {
-                changeCurrentParticipant();
-            }
+            isActive = false;
         }
 
         if(isCurrentParticipantBot() && getIsActive()){
@@ -533,18 +530,24 @@ public class RegularGame{
     public void makePopoutMove(int column) throws ColumnFullException, CantPopoutException {
         Turn turn = getParticipantTurn(column, Turn.removeDisk);
 
-        if(isWinnerFound()){
-            deactivateGame();
+        if(!isWinnerFound()){
+            changeCurrentParticipant();
         } else {
-            if(drawReached()){
-                deactivateGame();
-            } else {
-                changeCurrentParticipant();
-            }
+            isActive = false;
         }
 
         if(isCurrentParticipantBot() && getIsActive()){
             makeBotMove();
+        }
+    }
+
+    public void removePlayerFromGame(Participant participant){
+        allParticipants.remove(participant);
+
+        currentParticipants--;
+
+        if(allParticipants.isEmpty()){
+            deactivateGame();
         }
     }
 

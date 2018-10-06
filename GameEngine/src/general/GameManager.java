@@ -118,6 +118,10 @@ public class GameManager {
         return result;
     }
 
+    public void removeParticipantFromGame(int gameNum, Participant participant){
+        gamesList.get(gameNum).removePlayerFromGame(participant);
+    }
+
     public boolean getIfMyTurn(int gameNum, String name) {
         return gamesList.get(gameNum).getIsMyTurn(name);
     }

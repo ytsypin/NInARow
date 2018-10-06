@@ -5,6 +5,8 @@ var PLAYER_TABLE_URL = "/NinaRow/game/PlayerTable";
 var GAME_BOARD_URL = "/NinaRow/game/GameBoard";
 var REGULAR_MOVE_URL = "/NinaRow/game/RegularMove";
 var POPOUT_MOVE_URL = "/NinaRow/game/PopoutMove";
+var REMOVE_FROM_GAME_URL = "/NinaRow/game/RemoveFromGame";
+
 var WAITING_ROOM = "/NinaRow/pages/waitingroom/waitingroom.html";
 
 function showStatusBar(){
@@ -63,14 +65,26 @@ function refreshCurrentStatus(){
                         $('#winnerArea').text("Winner found - " + json.winnerNames);
                     }
 
+                    removePlayerFromGame();
+
                     setTimeout(function() {
-                        alert("Winner found, redirecting back to game lobby!");
+                        if (json.severalWinners) {
+                            alert("Several winners found - " + json.winnerNames + ". clearing the game and redirecting back to game lobby!");
+                        } else {
+                            alert("Winner found - " + json.winnerNames + ". clearing the game and redirecting back to game lobby!");
+                        }
                         window.location.replace(WAITING_ROOM);
-                        }, 5000);
+                    }, 5000);
                 }
             }
 
         }
+    })
+}
+
+function removePlayerFromGame(){
+    $.ajax({
+        url: REMOVE_FROM_GAME_URL
     })
 }
 
