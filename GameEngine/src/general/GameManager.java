@@ -93,9 +93,10 @@ public class GameManager {
         String result;
         try {
             gamesList.get(gameNum).makeRegularMove(column);
-            result = "OK";
+            result = "";
         } catch (ColumnFullException e) {
-            result = "Column Full";
+            System.out.println(column + " is full");
+            result = "Column " + column + " is full. Please select a valid move.";
         } catch (CantPopoutException e) {
             result = "Error";
         }
@@ -108,11 +109,13 @@ public class GameManager {
         String result;
         try {
             gamesList.get(gameNum).makePopoutMove(column);
-            result = "OK";
+            result = "";
         } catch (ColumnFullException e) {
-            result = "Column Full";
+            result = "Column " + column + " is full. Please select a valid move.";
+            System.out.println(column + " is full");
         } catch (CantPopoutException e) {
-            result = "Cant Popout";
+            result = "Column " + column + " can't be popped up by player.";
+            System.out.println(column + " can't be popped up by player.");
         }
 
         return result;
@@ -124,5 +127,9 @@ public class GameManager {
 
     public boolean getIfMyTurn(int gameNum, String name) {
         return gamesList.get(gameNum).getIsMyTurn(name);
+    }
+
+    public String getVariant(int gameNum) {
+        return gamesList.get(gameNum).getVariantName();
     }
 }

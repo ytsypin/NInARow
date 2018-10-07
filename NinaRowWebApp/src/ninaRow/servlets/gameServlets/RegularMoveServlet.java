@@ -23,7 +23,7 @@ public class RegularMoveServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException{
-        response.setContentType("application/javascript");
+        response.setContentType("application/json");
 
         GameManager gameManager = ServletUtils.getGameManager(getServletContext());
 
@@ -48,9 +48,16 @@ public class RegularMoveServlet extends HttpServlet {
 
     public static class MoveStatus{
         String result;
+        boolean isOK;
 
         public MoveStatus(String result){
-            this.result = result;
+            if(result.equals("")){
+                this.result = result;
+                isOK = true;
+            } else {
+                this.result = result;
+                isOK = false;
+            }
         }
     }
 

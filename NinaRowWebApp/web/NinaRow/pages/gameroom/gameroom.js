@@ -108,7 +108,7 @@ function refreshGameBoard(){
 
             createTopButtonRow(cols);
 
-            if(data.variant === "Popout"){
+            if(data.variant == "Popout"){
                 createBottomButtonRow(cols);
             }
             createBoard(data.board, data.rows, data.cols);
@@ -146,10 +146,14 @@ function createBottomButtonRow(cols){
     for(var i = 0; i < cols; i++){
         $('#topButtons').append("<button id='popoutMove"+i+"' class='moveButton'>popout</button>")
 
-        var buttonid = 'popoutMove'+i;
+        var buttonid = 'popoutMove' + i;
         var buttonElement = document.getElementById(buttonid);
 
-        buttonElement.onclick = function() { return popoutMove(i)};
+        buttonElement.onclick = function (col) {
+            return function () {
+                return popoutMove(col);
+            };
+        }(i);
     }
 }
 
@@ -161,12 +165,11 @@ function regularMove(col){
         data: {column: col},
         processData: true,
         success: function(result){
-            if(result.result === "Column Full"){
-                $('#messageArea').text("Column is full! Please select a valid move.");
-            } else if(result.result === "Error"){
-                $('#messageArea').text("Unspecified error occured");
-            } else {
+            if(result.isOK) {
                 $('#messageArea').text("");
+            } else {
+                alert(result.result);
+                $('#messageArea').text(result.result);
             }
         }
     })
@@ -178,14 +181,12 @@ function popoutMove(col){
         data: {column: col},
         processData: true,
         success: function(result){
-            if(result.result === "Column Full"){
-                $('#messageArea').text("Column is full! Please select a different column.");
-            } else if(result.result === "Cant Popout"){
-                $('#messageArea').text("Can't popout selected column! Please select a valid move.");
-            } else {
+            if(result.isOK) {
                 $('#messageArea').text("");
+            } else {
+                alert(result.result);
+                $('#messageArea').text(result.result);
             }
-
         }
     })
 }

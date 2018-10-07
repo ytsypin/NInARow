@@ -23,7 +23,7 @@ public class PopoutMoveServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException{
-        response.setContentType("application/javascript");
+        response.setContentType("application/json");
 
         GameManager gameManager = ServletUtils.getGameManager(getServletContext());
 

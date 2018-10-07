@@ -30,8 +30,9 @@ public class GameBoardServlet extends HttpServlet {
         int cols = gameManager.getColumns(gameNum);
         int rows = gameManager.getRows(gameNum);
         boolean myTurn = gameManager.getIfMyTurn(gameNum, name);
+        String variant = gameManager.getVariant(gameNum);
 
-        GameBoardData info = new GameBoardData(cols, rows, board, myTurn);
+        GameBoardData info = new GameBoardData(cols, rows, board, myTurn, variant);
 
         Gson gson = new Gson();
         String jsonResponse = gson.toJson(info);
@@ -48,12 +49,14 @@ public class GameBoardServlet extends HttpServlet {
         int rows;
         int[][] board;
         boolean myTurn;
+        String variant;
 
-        public GameBoardData(int cols, int rows, int[][] board, boolean myTurn){
+        public GameBoardData(int cols, int rows, int[][] board, boolean myTurn, String variant){
             this.cols = cols;
             this.rows = rows;
             this.board = board;
             this.myTurn = myTurn;
+            this.variant = variant;
         }
     }
 

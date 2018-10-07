@@ -569,6 +569,16 @@ public class RegularGame{
         }
     }
 
+    public String getVariantName() {
+        if(getGameType() == RegularGame.popoutGame){
+            return "Popout";
+        } else if (getGameType() == RegularGame.regularGame){
+            return "Regular";
+        } else {
+            return "Circular";
+        }
+    }
+
     public class GameDetails{
         private String name;
         private String uploader;
