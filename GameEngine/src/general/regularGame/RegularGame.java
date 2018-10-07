@@ -542,12 +542,14 @@ public class RegularGame{
     }
 
     public void removePlayerFromGame(Participant participant){
-        allParticipants.remove(participant);
+        if(allParticipants.contains(participant)) {
+            allParticipants.remove(participant);
 
-        currentParticipants--;
+            currentParticipants--;
 
-        if(allParticipants.isEmpty()){
-            deactivateGame();
+            if (allParticipants.isEmpty()) {
+                deactivateGame();
+            }
         }
     }
 
@@ -577,6 +579,39 @@ public class RegularGame{
         } else {
             return "Circular";
         }
+    }
+
+    public boolean getIfNoPossibleMoves() {
+        return getPossibleMoves().isEmpty();
+    }
+
+    public void quitGame(Participant participant) {
+        int rows = getRows();
+        int cols = getCols();
+
+        for(int i = 0; i < rows; i++){
+            for(int j = 0 ; j < cols; j++){
+                if(getTileSymbol(i,j) == participant.getParticipantSymbol()){
+                    removeTile(i,j);
+                    cascadeTiles(i, j);
+                }
+            }
+        }
+
+
+        if(!currentParticipant.getIsHuman() && !isWinnerFound() && !(allParticipants.size() == 1)){
+            makeBotMove();
+        }
+
+        removePlayerFromGame(participant);
+
+        if(allParticipants.size() == 1){
+            isActive = false;
+        }
+    }
+
+    public boolean isSinglePlayerLeft() {
+        return allParticipants.size() == 1;
     }
 
     public class GameDetails{

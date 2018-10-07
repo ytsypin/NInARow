@@ -42,10 +42,10 @@ public class BasicInfoServlet extends HttpServlet {
                 variant = "Popout";
                 break;
             case RegularGame.circularGame :
-                variant = "Regular";
+                variant = "Circular";
                 break;
             default :
-                variant = "Circular";
+                variant = "Regular";
                 break;
         }
 

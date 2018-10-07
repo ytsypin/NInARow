@@ -132,4 +132,16 @@ public class GameManager {
     public String getVariant(int gameNum) {
         return gamesList.get(gameNum).getVariantName();
     }
+
+    public boolean getIfNoPossibleMoves(int gameNum) {
+        return gamesList.get(gameNum).getIfNoPossibleMoves();
+    }
+
+    public void quitGame(int gameNum, Participant participant) {
+        gamesList.get(gameNum).quitGame(participant);
+    }
+
+    public boolean getIfSinglePlayerLeft(int gameNum) {
+        return gamesList.get(gameNum).isSinglePlayerLeft();
+    }
 }

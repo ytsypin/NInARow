@@ -6,6 +6,7 @@ var GAME_BOARD_URL = "/NinaRow/game/GameBoard";
 var REGULAR_MOVE_URL = "/NinaRow/game/RegularMove";
 var POPOUT_MOVE_URL = "/NinaRow/game/PopoutMove";
 var REMOVE_FROM_GAME_URL = "/NinaRow/game/RemoveFromGame";
+var QUIT_GAME_URL = "/NinaRow/game/QuitGame";
 
 var WAITING_ROOM = "/NinaRow/pages/waitingroom/waitingroom.html";
 
@@ -45,36 +46,70 @@ function refreshCurrentStatus(){
             }
 
             $('#gameStatus').text(gameStatus);
-
             if(json.isActive){
-                currentPlayerName = json.currentPlayerName;
-                $('#currentTurn').text(currentPlayerName);
-
-                if(json.myTurn){
-                    $('#myTurn').text("It's now your turn!");
-                    $('#leaveGame').prop('disabled',false);
-                } else {
-                    $('#leaveGame').prop('disabled',true);
-                    $('#myTurn').text("");
-                }
-            } else {
-                if(json.isWinnerFound){
-                    if(json.severalWinners){
-                        $('#winnerArea').text("Several winners found - " + json.winnerNames);
-                    } else {
-                        $('#winnerArea').text("Winner found - " + json.winnerNames);
-                    }
+                if(json.noPossibleMoves) {
+                    $('#winnerArea').text("There are no further possible moves! I guess we all lose!");
 
                     removePlayerFromGame();
 
+                    alert( "I guess we all lose, just like in real life... clearing the game and redirecting back to game lobby  in 5 seconds!");
+
                     setTimeout(function() {
-                        if (json.severalWinners) {
-                            alert("Several winners found - " + json.winnerNames + ". clearing the game and redirecting back to game lobby!");
-                        } else {
-                            alert("Winner found - " + json.winnerNames + ". clearing the game and redirecting back to game lobby!");
-                        }
                         window.location.replace(WAITING_ROOM);
                     }, 5000);
+                } else {
+                    if(json.singlePlayerLeft){
+                        $('#winnerArea').text("Only one player left - Congrats?");
+                        removePlayerFromGame();
+
+                        alert("Only a single player left...Congrats? Clearing game and redirecting to lobby  in 5 seconds.");
+
+                        setTimeout(function() {
+                            window.location.replace(WAITING_ROOM);
+                        }, 5000);
+                    } else {
+                        currentPlayerName = json.currentPlayerName;
+                        $('#currentTurn').text(currentPlayerName);
+
+                        if (json.myTurn) {
+                            $('#myTurn').text("It's now your turn!");
+                            $('#leaveGame').prop('disabled', false);
+                        } else {
+                            $('#leaveGame').prop('disabled', true);
+                            $('#myTurn').text("");
+                        }
+                    }
+                }
+            } else {
+                if(json.singlePlayerLeft){
+                    $('#winnerArea').text("Only one player left - Congrats?");
+                    removePlayerFromGame();
+
+                    alert("Only a single player left...Congrats? Clearing game and redirecting to lobby in 5 seconds.");
+
+                    setTimeout(function() {
+                        window.location.replace(WAITING_ROOM);
+                    }, 5000);
+                } else {
+                    if (json.isWinnerFound) {
+                        if (json.severalWinners) {
+                            $('#winnerArea').text("Several winners found - " + json.winnerNames);
+                        } else {
+                            $('#winnerArea').text("Winner found - " + json.winnerNames);
+                        }
+
+                        removePlayerFromGame();
+
+                        if (json.severalWinners) {
+                            alert("Several winners found - " + json.winnerNames + ". clearing the game and redirecting back to game lobby in 5 seconds!");
+                        } else {
+                            alert("Winner found - " + json.winnerNames + ". clearing the game and redirecting back to game lobby in 5 seconds!");
+                        }
+
+                        setTimeout(function () {
+                            window.location.replace(WAITING_ROOM);
+                        }, 5000);
+                    }
                 }
             }
 
@@ -219,6 +254,19 @@ function createBoard(board, rows, cols){
 
         rowDiv.appendTo(body);
     }
+}
+
+function onLeaveGame(){
+    alert("As you wish, redirecting back to lobby in 5 seconds...");
+
+    $.ajax({
+        url: QUIT_GAME_URL,
+        success: function(){
+            setTimeout(function() {
+                window.location.replace(WAITING_ROOM);
+            }, 5000);
+        }
+    })
 }
 
 $(function(){

@@ -14,17 +14,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 
-public class CurrentStatusServlet extends HttpServlet {
+public class QuitGameServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException{
 
         response.setContentType("application/json");
-
         String username = (String)request.getSession(true).getAttribute("username");
-
         UserManager userManager = ServletUtils.getUserManager(getServletContext());
 
         if(username == null){
@@ -35,55 +31,11 @@ public class CurrentStatusServlet extends HttpServlet {
 
         int gameNum = (int)request.getSession(false).getAttribute(Constants.GAME_NUMBER);
 
-        boolean isActive = gameManager.isGameActive(gameNum);
+        Participant participant = userManager.getParticipant(username);
 
-        String currentPlayerName = gameManager.getCurrentPlayerName(gameNum);
-
-        Participant myParticiapnt = userManager.getParticipant(username);
-
-        boolean myTurn = gameManager.isItMyTurn(gameNum, myParticiapnt);
-
-        boolean isWinnerFound = gameManager.isWinnerFound(gameNum);
-
-        boolean noPossibleMoves = gameManager.getIfNoPossibleMoves(gameNum);
-
-        boolean singlePlayerLeft = gameManager.getIfSinglePlayerLeft(gameNum);
-
-        List<String> winnerNames = isWinnerFound? gameManager.getWinnerNames(gameNum) : new ArrayList<>();
-
-        CurrentStatusInfo info = new CurrentStatusInfo(isActive, currentPlayerName, myTurn, isWinnerFound, winnerNames, noPossibleMoves, singlePlayerLeft);
-
-        Gson gson = new Gson();
-        String jsonResponse = gson.toJson(info);
-        System.out.println(jsonResponse);
-
-        try(PrintWriter out = response.getWriter()){
-            out.print(jsonResponse);
-            out.flush();
-        }
+        gameManager.quitGame(gameNum, participant);
     }
 
-    class CurrentStatusInfo{
-        final boolean isActive;
-        final String currentPlayerName;
-        final boolean myTurn;
-        final boolean isWinnerFound;
-        final List<String> winnerNames;
-        final boolean severalWinners;
-        final boolean noPossibleMoves;
-        final boolean singlePlayerLeft;
-
-        public CurrentStatusInfo(boolean isActive, String currentPlayerName, boolean myTurn, boolean isWinnerFound, List<String> winnerNames, boolean noPossibleMoves, boolean singlePlayerLeft){
-            this.isActive = isActive;
-            this.currentPlayerName = currentPlayerName;
-            this.myTurn = myTurn;
-            this.isWinnerFound = isWinnerFound;
-            this.winnerNames = winnerNames;
-            this.severalWinners = winnerNames.size() > 1;
-            this.noPossibleMoves = noPossibleMoves;
-            this.singlePlayerLeft = singlePlayerLeft;
-        }
-    }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

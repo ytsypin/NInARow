@@ -60,6 +60,10 @@
         <servlet-name>RemoveFromGameServlet</servlet-name>
         <servlet-class>ninaRow.servlets.gameServlets.RemoveFromGameServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>QuitGameServlet</servlet-name>
+        <servlet-class>ninaRow.servlets.gameServlets.QuitGameServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UsernameServlet</servlet-name>
         <url-pattern>/NinaRow/username</url-pattern>
@@ -119,5 +123,9 @@
     <servlet-mapping>
         <servlet-name>RemoveFromGameServlet</servlet-name>
         <url-pattern>/NinaRow/game/RemoveFromGame</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QuitGameServlet</servlet-name>
+        <url-pattern>/NinaRow/game/QuitGame</url-pattern>
     </servlet-mapping>
 </web-app>
