@@ -6,13 +6,10 @@
     <link rel="stylesheet" href="../../common/bootstrap.min.css">
     <link rel="stylesheet" href="waitingroom.css">
 </head>
-<body>
+<body class="body">
     <div class="topbar">
         <span class="userNameSpan"></span>
         <a><span class="logoutSpan" onClick="logoutClicked()">Logout</span></a>
-    </div>
-
-    <div class="mainScreen">
         <div class="gameUploadArea">
             <form id="gameUploadForm" action="/NinaRow/gameUpload" enctype="multipart/form-data" method="POST">
                 <input id="fileInput" class="fileInput" type="file" name="file" accept="text/xml">
@@ -21,7 +18,9 @@
                 <br>
             </form>
         </div>
+    </div>
 
+    <div class="mainScreen">
         <div class="gamesArea">
             <table class="gamesTable">
                 <thead>

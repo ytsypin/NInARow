@@ -6,6 +6,15 @@
     background-color: #67b168;
 }
 
+#buttonDiv{
+    float: left;
+}
+
+.hidden{
+    visibility: hidden;
+}
+
+
 html, body {
     height: 100%;
 }

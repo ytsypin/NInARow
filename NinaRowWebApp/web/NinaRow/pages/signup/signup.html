@@ -16,22 +16,24 @@
         <!-- <script src="common/jquery-2.0.3.min.js"></script>-->
         <!-- and\or any other scripts you might need to operate the JSP file behind the scene once it arrives to the client-->
     </head>
-    <body>
-        <div class="mainDiv">
-            <span class="welcomeSpan">Welcome to NinaRow!</span>
-            <br>
-            <form id="usernameForm" mtehod="GET" action="/NinaRow/pages/signup/login">
-                <div>
-                    <span>Enter your desired username:</span>
-                    <input type="text" name="username">
-                </div>
+    <body class="body">
+        <div class="main">
+            <div class="wrapper">
+                <h1 class="welcomeSpan">Welcome to NinaRow!</h1>
                 <br>
-                <div>
-                    <span>Are You Human?</span>
-                    <input name="isHuman" type="checkbox">
-                </div>
-                <input type="submit" value="Login">
-            </form>
+                <form id="usernameForm" mtehod="GET" action="/NinaRow/pages/signup/login">
+                    <div>
+                        <h4>Enter your desired username:</h4>
+                        <input id="usernameInput" type="text" name="username">
+                    </div>
+                    <br>
+                    <div>
+                        <span>Are You Human?</span>
+                        <input name="isHuman" type="checkbox">
+                    </div>
+                    <input type="submit" value="Login">
+                </form>
+            </div>
         </div>
     </body>
 </html>

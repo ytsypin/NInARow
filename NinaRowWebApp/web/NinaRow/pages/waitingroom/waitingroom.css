@@ -1,14 +1,30 @@
+.body{
+    background-color: #7cd59f;
+}
+
 .mainScreen{
     margin: 1% 1% 0% 1%;
     display: flex;
 }
 
+.topBar{
+    float:left;
+    width: 100%;
+}
+
 .gamesArea{
     flex: 2 0 0;
+    float: left;
+    width: 90%;
 }
 
 .gamesTable{
     border: 1px black solid;
     border-radius: 8px;
-    width: 100%;
+    width: 99.9%;
+}
+
+.onlinePlayers{
+    float:right;
+    width: 6%;
 }
