@@ -1,0 +1,22 @@
+.body{
+    background-color: #31b0d5;
+
+}
+
+#enterButton{
+    background-color: #67b168;
+}
+
+html, body {
+    height: 100%;
+}
+.main {
+    height: 100%;
+    width: 100%;
+    display: table;
+}
+.wrapper {
+    display: table-cell;
+    height: 100%;
+    vertical-align: middle;
+}
