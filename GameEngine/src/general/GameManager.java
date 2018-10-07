@@ -144,4 +144,8 @@ public class GameManager {
     public boolean getIfSinglePlayerLeft(int gameNum) {
         return gamesList.get(gameNum).isSinglePlayerLeft();
     }
+
+    public boolean getIfGameEnded(int gameNum) {
+        return gamesList.get(gameNum).isGameEnded();
+    }
 }

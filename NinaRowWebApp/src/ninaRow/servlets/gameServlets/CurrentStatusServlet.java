@@ -51,7 +51,9 @@ public class CurrentStatusServlet extends HttpServlet {
 
         List<String> winnerNames = isWinnerFound? gameManager.getWinnerNames(gameNum) : new ArrayList<>();
 
-        CurrentStatusInfo info = new CurrentStatusInfo(isActive, currentPlayerName, myTurn, isWinnerFound, winnerNames, noPossibleMoves, singlePlayerLeft);
+        boolean gameEnded = gameManager.getIfGameEnded(gameNum);
+
+        CurrentStatusInfo info = new CurrentStatusInfo(isActive, currentPlayerName, myTurn, isWinnerFound, winnerNames, noPossibleMoves, singlePlayerLeft, gameEnded);
 
         Gson gson = new Gson();
         String jsonResponse = gson.toJson(info);
@@ -72,8 +74,9 @@ public class CurrentStatusServlet extends HttpServlet {
         final boolean severalWinners;
         final boolean noPossibleMoves;
         final boolean singlePlayerLeft;
+        final boolean gameEnded;
 
-        public CurrentStatusInfo(boolean isActive, String currentPlayerName, boolean myTurn, boolean isWinnerFound, List<String> winnerNames, boolean noPossibleMoves, boolean singlePlayerLeft){
+        public CurrentStatusInfo(boolean isActive, String currentPlayerName, boolean myTurn, boolean isWinnerFound, List<String> winnerNames, boolean noPossibleMoves, boolean singlePlayerLeft, boolean gameEnded){
             this.isActive = isActive;
             this.currentPlayerName = currentPlayerName;
             this.myTurn = myTurn;
@@ -82,6 +85,7 @@ public class CurrentStatusServlet extends HttpServlet {
             this.severalWinners = winnerNames.size() > 1;
             this.noPossibleMoves = noPossibleMoves;
             this.singlePlayerLeft = singlePlayerLeft;
+            this.gameEnded = gameEnded;
         }
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

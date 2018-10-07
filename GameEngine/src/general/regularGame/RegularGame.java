@@ -28,6 +28,7 @@ public class RegularGame{
     protected int requiredParticipants;
     protected int currentParticipants;
     protected String uploader;
+    private boolean gameEnded;
 
     public RegularGame(int n, int rows, int cols, int requiredParticipants, String name, String uploader) {
         N = n;
@@ -38,6 +39,7 @@ public class RegularGame{
         gameName = name;
         currentParticipants = 0;
         this.uploader = uploader;
+        gameEnded = false;
     }
 
     public boolean isCurrentParticipantBot() {
@@ -153,6 +155,7 @@ public class RegularGame{
 
             if(currStreak == N){
                 winnerFound = true;
+                gameEnded = true;
             }
         }
 
@@ -171,6 +174,7 @@ public class RegularGame{
 
             if(currStreak == N){
                 winnerFound = true;
+                gameEnded = true;
             }
         }
     }
@@ -196,6 +200,7 @@ public class RegularGame{
 
             if(currStreak == N){
                 winnerFound = true;
+                gameEnded = true;
                 keepLooking = false;
             }
         }
@@ -215,6 +220,7 @@ public class RegularGame{
 
             if(currStreak == N){
                 winnerFound = true;
+                gameEnded = true;
                 keepLooking = false;
             }
         }
@@ -238,6 +244,7 @@ public class RegularGame{
 
             if(currStreak == N){
                 winnerFound = true;
+                gameEnded = true;
                 keepLooking = false;
             }
         }
@@ -256,6 +263,7 @@ public class RegularGame{
 
             if(currStreak == N){
                 winnerFound = true;
+                gameEnded = true;
                 keepLooking = false;
             }
         }
@@ -279,6 +287,7 @@ public class RegularGame{
 
             if(currStreak == N){
                 winnerFound = true;
+                gameEnded = true;
                 keepLooking = false;
             }
         }
@@ -297,6 +306,7 @@ public class RegularGame{
 
             if(currStreak == N){
                 winnerFound = true;
+                gameEnded = true;
                 keepLooking = false;
             }
         }
@@ -417,6 +427,7 @@ public class RegularGame{
 
         if(winnersFound){
             winnerFound = true;
+            gameEnded = true;
         }
     }
 
@@ -612,6 +623,10 @@ public class RegularGame{
 
     public boolean isSinglePlayerLeft() {
         return allParticipants.size() == 1;
+    }
+
+    public boolean isGameEnded() {
+        return gameEnded;
     }
 
     public class GameDetails{

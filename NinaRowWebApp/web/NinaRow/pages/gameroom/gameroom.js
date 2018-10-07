@@ -58,7 +58,7 @@ function refreshCurrentStatus(){
                         window.location.replace(WAITING_ROOM);
                     }, 5000);
                 } else {
-                    if(json.singlePlayerLeft){
+                    if(json.singlePlayerLeft && json.gameEnded){
                         $('#winnerArea').text("Only one player left - Congrats?");
                         removePlayerFromGame();
 
