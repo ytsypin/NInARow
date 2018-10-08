@@ -130,7 +130,7 @@ function refreshPlayerTable(){
             $('#playerTableBody').append($("<tr>")
                 .append($("<td>").append(participant.name))
                 .append($("<td>").append(participant.isHuman ? "Yes" : "No"))
-                .append($("<td>").append(participant.turns)))
+                .append($("<td>").append(participant.turns)).addClass('player'+(i+1)))
         })
     })
 }
