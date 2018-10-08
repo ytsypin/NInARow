@@ -1,15 +1,9 @@
-.cell{
-    display: inline-block;
-    border: 1px black solid;
-    width: 60px;
-    height: 60px;
-
-    -webkit-border-radius: 30px;
-    border-radius: 30px;
+td{
+    -webkit-text-stroke: 1px black;
 }
 
 .player1{
-    background-color: #204d74;
+    background-color: #007eec;
 }
 
 .player2{
@@ -30,4 +24,104 @@
 
 .player6{
     background-color: cyan;
+}
+
+.topBarContent{
+    width: 100%;
+    padding: 1% 1% 1% 1%;
+    text-align: center;
+}
+
+.currentTurnDiv{
+    padding: 1% 1% 1% 1%;
+    text-align: center;
+}
+
+.mainDiv{
+    display: inline-block;
+    text-align: center;
+    width:-webkit-fill-available;
+}
+
+.gameBoard{
+    float:left;
+    height:fit-content;
+    border: 1px solid black;
+    width: 75%;
+}
+
+.board{
+    border: 1px solid red;
+}
+
+.rightSide{
+    float:right;
+    width: 15%;
+    height: fit-content;
+    border: 1px solid blue;
+}
+
+.chat{
+    width:fit-content;
+    padding-top: 0.25em;
+}
+
+
+.tableDiv{
+    height: fit-content;
+}
+
+table{
+    border-collapse: collapse;
+}
+
+td, th{
+    padding: 0.25em;
+    text-align: center;
+    border-bottom: 1px solid #7cd59f;
+    font-weight: bold;
+    width: 5%;
+}
+
+th{
+    border-bottom: 1px solid #7cd59f;
+    background-color: #7cd59f;
+}
+
+td{
+    font-weight: normal;
+    background-color: #7cd59f;
+}
+
+th:hover{
+    background-color: #508c67;
+}
+
+td:hover{
+    background-color: #508c67;
+}
+
+.spectatorDiv{
+    float:left;
+    width: 10%;
+    height: fit-content;
+    border: 1px solid purple;
+}
+
+.rowDiv{
+
+}
+
+.cell{
+    display: inline-block;
+    border: 1px black solid;
+    width: 32px;
+    height: 32px;
+
+    -webkit-border-radius: 30px;
+    border-radius: 30px;
+}
+
+.moveButton{
+    width: 32px;
 }

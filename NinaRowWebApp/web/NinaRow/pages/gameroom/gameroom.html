@@ -20,36 +20,42 @@
         </div>
     </div>
 
-    <div class="mainDiv">
-        <div class="currentTurnDiv" id="currentTurnDiv">
-            <span id="currentTurnHeader" id="currentTurnHeader">Current Turn:</span>
-            <span id="currentTurn" id="currentTurn"></span>
-        </div>
-        <div class="winnerArea" id="winnerArea"></div>
+    <div class="currentTurnDiv" id="currentTurnDiv">
+        <span id="currentTurnHeader" class="currentTurnHeader">Current Turn:</span>
+        <span id="currentTurn" class="currentTurn"></span>
         <div class="myTurn" id="myTurn"></div>
+        <div class="winnerArea" id="winnerArea"></div>
+        <div id="messageArea" class="messageArea"></div>
+    </div>
+
+
+    <div class="mainDiv">
+        <div class="spectatorDiv"></div>
+
         <div class="gameBoard">
             <div class="boardBody">
-                <div id="messageArea" class="messageArea"></div>
                 <div id="topButtons" class="topButtons"></div>
                 <div id="board" class="board"></div>
                 <div id="bottomButtons" class="bottomButtons"></div>
             </div>
         </div>
-        <div class="tableDiv">
-            <table id="playerTable" class="playerTable">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Human?</th>
-                        <th>Turns</th>
-                    </tr>
-                </thead>
-                <tbody id="playerTableBody" class="playerTableBody"></tbody>
-            </table>
-            <button type="button" id="leaveGame" class="btn btn-danger" id="leaveGame" onclick="onLeaveGame()">Quit</button>
+
+        <div class="rightSide">
+            <div class="tableDiv">
+                <table id="playerTable" class="playerTable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Human?</th>
+                            <th>Turns</th>
+                        </tr>
+                    </thead>
+                    <tbody id="playerTableBody" class="playerTableBody"></tbody>
+                </table>
+                <button type="button" id="leaveGame" class="btn btn-danger" id="leaveGame" onclick="onLeaveGame()">Quit</button>
+            </div>
+            <div class="chat"></div>
         </div>
-        <div class="spectators"></div>
-        <div class="chat"></div>
     </div>
 
 <script src="../../common/jquery-2.0.3.min.js"></script>

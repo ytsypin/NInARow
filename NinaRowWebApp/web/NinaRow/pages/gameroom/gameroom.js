@@ -10,6 +10,8 @@ var QUIT_GAME_URL = "/NinaRow/game/QuitGame";
 
 var WAITING_ROOM = "/NinaRow/pages/waitingroom/waitingroom.html";
 
+var REDIRECT_TIMEOUT = 2000;
+
 function showStatusBar(){
     var name;
     var humanity;
@@ -52,21 +54,21 @@ function refreshCurrentStatus(){
 
                     removePlayerFromGame();
 
-                    alert( "I guess we all lose, just like in real life... clearing the game and redirecting back to game lobby  in 5 seconds!");
+                    alert( "I guess we all lose, just like in real life... clearing the game and redirecting back to game lobby!");
 
                     setTimeout(function() {
                         window.location.replace(WAITING_ROOM);
-                    }, 5000);
+                    }, REDIRECT_TIMEOUT);
                 } else {
                     if(json.singlePlayerLeft){
                         $('#winnerArea').text("Only one player left - Congrats?");
                         removePlayerFromGame();
 
-                        alert("Only a single player left...Congrats? Clearing game and redirecting to lobby  in 5 seconds.");
+                        alert("Only a single player left...Congrats? Clearing game and redirecting to lobby.");
 
                         setTimeout(function() {
                             window.location.replace(WAITING_ROOM);
-                        }, 5000);
+                        }, REDIRECT_TIMEOUT);
                     } else {
                         currentPlayerName = json.currentPlayerName;
                         $('#currentTurn').text(currentPlayerName);
@@ -85,11 +87,11 @@ function refreshCurrentStatus(){
                     $('#winnerArea').text("Only one player left - Congrats?");
                     removePlayerFromGame();
 
-                    alert("Only a single player left...Congrats? Clearing game and redirecting to lobby in 5 seconds.");
+                    alert("Only a single player left...Congrats? Clearing game and redirecting to lobby.");
 
                     setTimeout(function() {
                         window.location.replace(WAITING_ROOM);
-                    }, 5000);
+                    }, REDIRECT_TIMEOUT);
                 } else {
                     if (json.isWinnerFound) {
                         if (json.severalWinners) {
@@ -101,18 +103,17 @@ function refreshCurrentStatus(){
                         removePlayerFromGame();
 
                         if (json.severalWinners) {
-                            alert("Several winners found - " + json.winnerNames + ". clearing the game and redirecting back to game lobby in 5 seconds!");
+                            alert("Several winners found - " + json.winnerNames + ". clearing the game and redirecting back to game lobby!");
                         } else {
-                            alert("Winner found - " + json.winnerNames + ". clearing the game and redirecting back to game lobby in 5 seconds!");
+                            alert("Winner found - " + json.winnerNames + ". clearing the game and redirecting back to game lobby!");
                         }
 
                         setTimeout(function () {
                             window.location.replace(WAITING_ROOM);
-                        }, 5000);
+                        }, REDIRECT_TIMEOUT);
                     }
                 }
             }
-
         }
     })
 }
@@ -162,7 +163,7 @@ function createTopButtonRow(cols){
     $('#topButtons').empty();
 
     for(var i = 0; i < cols; i++){
-        $('#topButtons').append("<button id='regularMove"+i+"' class='moveButton'>regular</button>")
+        $('#topButtons').append("<button id='regularMove"+i+"' class='moveButton'>d</button>")
 
         var buttonid = 'regularMove' + i;
         var buttonElement = document.getElementById(buttonid);
@@ -179,7 +180,7 @@ function createBottomButtonRow(cols){
     $('#bottomButtons').empty();
 
     for(var i = 0; i < cols; i++){
-        $('#topButtons').append("<button id='popoutMove"+i+"' class='moveButton'>popout</button>")
+        $('#topButtons').append("<button id='popoutMove"+i+"' class='moveButton'>d</button>")
 
         var buttonid = 'popoutMove' + i;
         var buttonElement = document.getElementById(buttonid);
@@ -257,14 +258,14 @@ function createBoard(board, rows, cols){
 }
 
 function onLeaveGame(){
-    alert("As you wish, redirecting back to lobby in 5 seconds...");
-
     $.ajax({
         url: QUIT_GAME_URL,
-        success: function(){
+        success: function(r){
+            alert("As you wish, redirecting back to lobby.");
+
             setTimeout(function() {
                 window.location.replace(WAITING_ROOM);
-            }, 5000);
+            }, REDIRECT_TIMEOUT);
         }
     })
 }

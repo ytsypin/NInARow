@@ -34,6 +34,17 @@ public class QuitGameServlet extends HttpServlet {
         Participant participant = userManager.getParticipant(username);
 
         gameManager.quitGame(gameNum, participant);
+
+        String ok = "OK";
+
+        Gson gson = new Gson();
+
+        String jsonResponse = gson.toJson(ok);
+
+        try(PrintWriter out = response.getWriter()){
+            out.print(jsonResponse);
+            out.flush();
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
