@@ -60,7 +60,7 @@ function refreshCurrentStatus(){
                         window.location.replace(WAITING_ROOM);
                     }, REDIRECT_TIMEOUT);
                 } else {
-                    if(json.singlePlayerLeft){
+                    if(json.singlePlayerLeft && !json.isWinnerFound){
                         $('#winnerArea').text("Only one player left - Congrats?");
                         removePlayerFromGame();
 
@@ -83,7 +83,7 @@ function refreshCurrentStatus(){
                     }
                 }
             } else {
-                if(json.singlePlayerLeft  && json.gameEnded){
+                if(json.singlePlayerLeft  && json.gameEnded && !json.isWinnerFound){
                     $('#winnerArea').text("Only one player left - Congrats?");
                     removePlayerFromGame();
 
@@ -163,7 +163,7 @@ function createTopButtonRow(cols){
     $('#topButtons').empty();
 
     for(var i = 0; i < cols; i++){
-        $('#topButtons').append("<button id='regularMove"+i+"' class='moveButton'>d</button>")
+        $('#topButtons').append("<button id='regularMove"+i+"' class='moveButton'></button>");
 
         var buttonid = 'regularMove' + i;
         var buttonElement = document.getElementById(buttonid);
@@ -180,7 +180,7 @@ function createBottomButtonRow(cols){
     $('#bottomButtons').empty();
 
     for(var i = 0; i < cols; i++){
-        $('#topButtons').append("<button id='popoutMove"+i+"' class='moveButton'>d</button>")
+        $('#topButtons').append("<button id='popoutMove"+i+"' class='moveButton'>d</button>");
 
         var buttonid = 'popoutMove' + i;
         var buttonElement = document.getElementById(buttonid);
@@ -275,4 +275,4 @@ $(function(){
     setInterval(refreshCurrentStatus, refreshRate);
     setInterval(refreshPlayerTable, refreshRate);
     setInterval(refreshGameBoard, refreshRate);
-})
+});

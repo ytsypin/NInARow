@@ -16,27 +16,29 @@
                 <div class="variant"></div>
                 <div class="goal"></div>
             </div>
+
             <div class="gameStarted" id="gameStarted"></div>
+
+            <div class="currentTurnDiv" id="currentTurnDiv">
+                <span id="currentTurnHeader" class="currentTurnHeader">Current Turn:</span>
+                <span id="currentTurn" class="currentTurn"></span>
+                <div class="myTurn" id="myTurn"></div>
+                <div class="winnerArea" id="winnerArea"></div>
+                <div id="messageArea" class="messageArea"></div>
+            </div>
         </div>
     </div>
 
-    <div class="currentTurnDiv" id="currentTurnDiv">
-        <span id="currentTurnHeader" class="currentTurnHeader">Current Turn:</span>
-        <span id="currentTurn" class="currentTurn"></span>
-        <div class="myTurn" id="myTurn"></div>
-        <div class="winnerArea" id="winnerArea"></div>
-        <div id="messageArea" class="messageArea"></div>
-    </div>
 
 
     <div class="mainDiv">
-        <div class="spectatorDiv"></div>
-
         <div class="gameBoard">
             <div class="boardBody">
-                <div id="topButtons" class="topButtons"></div>
-                <div id="board" class="board"></div>
-                <div id="bottomButtons" class="bottomButtons"></div>
+                <div id="boardAndButtons" class="boardAndButtons">
+                    <div id="topButtons" class="topButtons"></div>
+                    <div id="board" class="board"></div>
+                    <div id="bottomButtons" class="bottomButtons"></div>
+                </div>
             </div>
         </div>
 
@@ -52,7 +54,7 @@
                     </thead>
                     <tbody id="playerTableBody" class="playerTableBody"></tbody>
                 </table>
-                <button type="button" id="leaveGame" class="btn btn-danger" id="leaveGame" onclick="onLeaveGame()">Quit</button>
+                <button type="button" id="leaveGame" class="btn btn-danger" onclick="onLeaveGame()">Quit</button>
             </div>
             <div class="chat"></div>
         </div>

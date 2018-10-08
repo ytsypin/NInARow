@@ -1,5 +1,6 @@
-td{
-    -webkit-text-stroke: 1px black;
+html,body{
+    background-color: #a4bed4;
+    height: 100%;
 }
 
 .player1{
@@ -27,9 +28,22 @@ td{
 }
 
 .topBarContent{
+    font-size: 150%;
     width: 100%;
     padding: 1% 1% 1% 1%;
     text-align: center;
+
+    border: 2px solid #0083ff;
+    border-radius: 5px
+}
+
+.myTurn{
+    font-size: 175%;
+}
+
+.topBar{
+    margin: 1% 1% 1% 1%;
+    background-color: #d4b25a
 }
 
 .currentTurnDiv{
@@ -38,27 +52,46 @@ td{
 }
 
 .mainDiv{
+    margin: 1% 1% 1% 1%;
     display: inline-block;
     text-align: center;
-    width:-webkit-fill-available;
+    width: -webkit-fill-available;
+
+    border: 2px solid #0083ff;
+    border-radius: 5px;
+
+    background-color: #dec78b;
+
+}
+
+.boardBody{
+    text-align: center;
 }
 
 .gameBoard{
     float:left;
     height:fit-content;
-    border: 1px solid black;
-    width: 75%;
+    width: 85%;
+
+    padding: 1% 1% 1% 1%;
 }
 
-.board{
-    border: 1px solid red;
+.boardAndButtons{
+    display: inline-block;
+    width: fit-content;
 }
 
 .rightSide{
+    position: absolute;
+    right:1.5%;
     float:right;
-    width: 15%;
+    width: fit-content;
     height: fit-content;
-    border: 1px solid blue;
+    overflow: hidden;
+}
+
+#leaveGame{
+    margin-top: 3%;
 }
 
 .chat{
@@ -73,6 +106,9 @@ td{
 
 table{
     border-collapse: collapse;
+    -webkit-border-radius: 5px;
+    overflow: hidden;
+
 }
 
 td, th{
@@ -80,36 +116,24 @@ td, th{
     text-align: center;
     border-bottom: 1px solid #7cd59f;
     font-weight: bold;
-    width: 5%;
+    width: fit-content;
 }
 
 th{
     border-bottom: 1px solid #7cd59f;
-    background-color: #7cd59f;
+    background-color: #eaeaea;
 }
 
 td{
     font-weight: normal;
-    background-color: #7cd59f;
 }
 
 th:hover{
-    background-color: #508c67;
+    background-color: #7abd94;
 }
 
 td:hover{
-    background-color: #508c67;
-}
-
-.spectatorDiv{
-    float:left;
-    width: 10%;
-    height: fit-content;
-    border: 1px solid purple;
-}
-
-.rowDiv{
-
+    background-color: #6fa986;
 }
 
 .cell{
@@ -124,4 +148,13 @@ td:hover{
 
 .moveButton{
     width: 32px;
+    height: 32px;
+    border: 0;
+    background: url(/NinaRow/common/images/pre-hover.png) no-repeat;
+    background-size: 100%;
+}
+
+.moveButton:hover{
+    background: url(/NinaRow/common/images/hover.png) no-repeat;
+    background-size: 100%;
 }

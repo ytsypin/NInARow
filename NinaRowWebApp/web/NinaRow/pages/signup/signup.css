@@ -12,6 +12,7 @@ html, body {
 }
 .wrapper {
     display: table-cell;
+    padding-left: 4%;
     height: 100%;
     vertical-align: middle;
 }

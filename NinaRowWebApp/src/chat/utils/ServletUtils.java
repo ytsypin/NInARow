@@ -1,7 +1,5 @@
 package chat.utils;
 
-import engine.chat.ChatManager;
-//import engine.users.UserManager;
 import general.GameManager;
 import general.UserManager;
 
@@ -31,26 +29,6 @@ public class ServletUtils {
 			}
 		}
 		return (UserManager) servletContext.getAttribute(USER_MANAGER_ATTRIBUTE_NAME);
-	}
-
-	public static ChatManager getChatManager(ServletContext servletContext) {
-		synchronized (chatManagerLock) {
-			if (servletContext.getAttribute(CHAT_MANAGER_ATTRIBUTE_NAME) == null) {
-				servletContext.setAttribute(CHAT_MANAGER_ATTRIBUTE_NAME, new ChatManager());
-			}
-		}
-		return (ChatManager) servletContext.getAttribute(CHAT_MANAGER_ATTRIBUTE_NAME);
-	}
-
-	public static int getIntParameter(HttpServletRequest request, String name) {
-		String value = request.getParameter(name);
-		if (value != null) {
-			try {
-				return Integer.parseInt(value);
-			} catch (NumberFormatException numberFormatException) {
-			}
-		}
-		return INT_PARAMETER_ERROR;
 	}
 
     public static GameManager getGameManager(ServletContext servletContext) {
