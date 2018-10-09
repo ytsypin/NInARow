@@ -47,8 +47,6 @@ function refreshGamesList(){
 }
 
 function joinGame(gameNum){
-    alert("Joining game" + gameNum + "!");
-
     $.ajax({
         url: JOIN_GAME_URL,
         data: {gameNumber: gameNum},

@@ -629,6 +629,10 @@ public class RegularGame{
         return gameEnded;
     }
 
+    public boolean isPlaying(Participant myParticiapnt) {
+        return allParticipants.contains(myParticiapnt);
+    }
+
     public class GameDetails{
         private String name;
         private String uploader;

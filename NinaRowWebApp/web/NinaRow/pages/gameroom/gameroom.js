@@ -60,7 +60,7 @@ function refreshCurrentStatus(){
                         window.location.replace(WAITING_ROOM);
                     }, REDIRECT_TIMEOUT);
                 } else {
-                    if(json.singlePlayerLeft && !json.isWinnerFound){
+                    if(json.singlePlayerLeft){
                         $('#winnerArea').text("Only one player left - Congrats?");
                         removePlayerFromGame();
 
@@ -83,7 +83,7 @@ function refreshCurrentStatus(){
                     }
                 }
             } else {
-                if(json.singlePlayerLeft  && json.gameEnded && !json.isWinnerFound){
+                if(json.singlePlayerLeft && json.inGame){
                     $('#winnerArea').text("Only one player left - Congrats?");
                     removePlayerFromGame();
 
@@ -194,8 +194,6 @@ function createBottomButtonRow(cols){
 }
 
 function regularMove(col){
-    alert("Making regular move column " + col);
-
     $.ajax({
         url: REGULAR_MOVE_URL,
         data: {column: col},

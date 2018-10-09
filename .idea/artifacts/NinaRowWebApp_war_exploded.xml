@@ -1,8 +1,7 @@
 <component name="ArtifactManager">
-  <artifact type="war" name="NinaRowWebApp:war exploded">
+  <artifact type="exploded-war" name="NinaRowWebApp:war exploded">
     <output-path>$PROJECT_DIR$/out/artifacts/NinaRowWebApp_war_exploded</output-path>
-    <root id="archive" name="NinaRowWebApp_war exploded.war">
-      <element id="javaee-facet-resources" facet="NinaRowWebApp/web/Web" />
+    <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="NinaRowWebApp" />
@@ -14,6 +13,7 @@
           <element id="file-copy" path="$PROJECT_DIR$/3rdParty/google-gson-2.1/gson-2.1-sources.jar" />
         </element>
       </element>
+      <element id="javaee-facet-resources" facet="NinaRowWebApp/web/Web" />
     </root>
   </artifact>
 </component>
