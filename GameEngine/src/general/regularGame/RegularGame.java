@@ -29,6 +29,7 @@ public class RegularGame{
     protected int currentParticipants;
     protected String uploader;
     private boolean gameEnded;
+    private boolean playerLeft;
 
     public RegularGame(int n, int rows, int cols, int requiredParticipants, String name, String uploader) {
         N = n;
@@ -40,6 +41,7 @@ public class RegularGame{
         currentParticipants = 0;
         this.uploader = uploader;
         gameEnded = false;
+        playerLeft = false;
     }
 
     public boolean isCurrentParticipantBot() {
@@ -342,6 +344,9 @@ public class RegularGame{
 
     public void clearGame() {
         winnerFound = false;
+        playerLeft = false;
+        gameEnded = false;
+
         gameBoard.clear();
         if(winners != null) {
             winners.clear();
@@ -609,6 +614,8 @@ public class RegularGame{
             }
         }
 
+        playerLeft = true;
+
 
         if(!currentParticipant.getIsHuman() && !isWinnerFound() && !(allParticipants.size() == 1)){
             makeBotMove();
@@ -631,6 +638,10 @@ public class RegularGame{
 
     public boolean isPlaying(Participant myParticiapnt) {
         return allParticipants.contains(myParticiapnt);
+    }
+
+    public boolean didPlayerLeave() {
+        return playerLeft;
     }
 
     public class GameDetails{

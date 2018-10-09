@@ -152,4 +152,8 @@ public class GameManager {
     public boolean getIfMemberOfGame(int gameNum, Participant myParticiapnt) {
         return gamesList.get(gameNum).isPlaying(myParticiapnt);
     }
+
+    public boolean getIfPlayerLeft(int gameNum) {
+        return gamesList.get(gameNum).didPlayerLeave();
+    }
 }

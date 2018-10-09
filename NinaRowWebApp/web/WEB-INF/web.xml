@@ -2,122 +2,122 @@
 <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
-        <servlet-class>ninaRow.servlets.LoginServlet</servlet-class>
+        <servlet-class>servlets.LoginServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UsernameServlet</servlet-name>
-        <servlet-class>ninaRow.servlets.UsernameServlet</servlet-class>
+        <servlet-class>servlets.UsernameServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UsersListServlet</servlet-name>
-        <servlet-class>ninaRow.servlets.UsersListServlet</servlet-class>
+        <servlet-class>servlets.UsersListServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LogoutServlet</servlet-name>
-        <servlet-class>ninaRow.servlets.LogoutServlet</servlet-class>
+        <servlet-class>servlets.LogoutServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LoadGameServlet</servlet-name>
-        <servlet-class>ninaRow.servlets.LoadGameServlet</servlet-class>
+        <servlet-class>servlets.LoadGameServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>GameListServlet</servlet-name>
-        <servlet-class>ninaRow.servlets.GameListServlet</servlet-class>
+        <servlet-class>servlets.GameListServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>JoinGameServlet</servlet-name>
-        <servlet-class>ninaRow.servlets.JoinGameServlet</servlet-class>
+        <servlet-class>servlets.JoinGameServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>BasicInfoServlet</servlet-name>
-        <servlet-class>ninaRow.servlets.gameServlets.BasicInfoServlet</servlet-class>
+        <servlet-class>servlets.gameServlets.BasicInfoServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CurrentStatusServlet</servlet-name>
-        <servlet-class>ninaRow.servlets.gameServlets.CurrentStatusServlet</servlet-class>
+        <servlet-class>servlets.gameServlets.CurrentStatusServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>PlayerTableServlet</servlet-name>
-        <servlet-class>ninaRow.servlets.gameServlets.PlayerTableServlet</servlet-class>
+        <servlet-class>servlets.gameServlets.PlayerTableServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>GameBoardServlet</servlet-name>
-        <servlet-class>ninaRow.servlets.gameServlets.GameBoardServlet</servlet-class>
+        <servlet-class>servlets.gameServlets.GameBoardServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RegularMoveServlet</servlet-name>
-        <servlet-class>ninaRow.servlets.gameServlets.RegularMoveServlet</servlet-class>
+        <servlet-class>servlets.gameServlets.RegularMoveServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>PopoutMoveServlet</servlet-name>
-        <servlet-class>ninaRow.servlets.gameServlets.PopoutMoveServlet</servlet-class>
+        <servlet-class>servlets.gameServlets.PopoutMoveServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RemoveFromGameServlet</servlet-name>
-        <servlet-class>ninaRow.servlets.gameServlets.RemoveFromGameServlet</servlet-class>
+        <servlet-class>servlets.gameServlets.RemoveFromGameServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>QuitGameServlet</servlet-name>
-        <servlet-class>ninaRow.servlets.gameServlets.QuitGameServlet</servlet-class>
+        <servlet-class>servlets.gameServlets.QuitGameServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UsernameServlet</servlet-name>
-        <url-pattern>/NinaRow/username</url-pattern>
+        <url-pattern>/username</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
-        <url-pattern>/NinaRow/pages/signup/login</url-pattern>
+        <url-pattern>/pages/signup/login</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UsersListServlet</servlet-name>
-        <url-pattern>/NinaRow/userlist</url-pattern>
+        <url-pattern>/userlist</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LoadGameServlet</servlet-name>
-        <url-pattern>/NinaRow/gameUpload</url-pattern>
+        <url-pattern>/gameUpload</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GameListServlet</servlet-name>
-        <url-pattern>/NinaRow/gameList</url-pattern>
+        <url-pattern>/gameList</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
-        <url-pattern>/NinaRow/logout</url-pattern>
+        <url-pattern>/logout</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>JoinGameServlet</servlet-name>
-        <url-pattern>/NinaRow/joinGame</url-pattern>
+        <url-pattern>/joinGame</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>BasicInfoServlet</servlet-name>
-        <url-pattern>/NinaRow/game/BasicInfo</url-pattern>
+        <url-pattern>/game/BasicInfo</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CurrentStatusServlet</servlet-name>
-        <url-pattern>/NinaRow/game/CurrentStatus</url-pattern>
+        <url-pattern>/game/CurrentStatus</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>PlayerTableServlet</servlet-name>
-        <url-pattern>/NinaRow/game/PlayerTable</url-pattern>
+        <url-pattern>/game/PlayerTable</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GameBoardServlet</servlet-name>
-        <url-pattern>/NinaRow/game/GameBoard</url-pattern>
+        <url-pattern>/game/GameBoard</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RegularMoveServlet</servlet-name>
-        <url-pattern>/NinaRow/game/RegularMove</url-pattern>
+        <url-pattern>/game/RegularMove</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>PopoutMoveServlet</servlet-name>
-        <url-pattern>/NinaRow/game/PopoutMove</url-pattern>
+        <url-pattern>/game/PopoutMove</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RemoveFromGameServlet</servlet-name>
-        <url-pattern>/NinaRow/game/RemoveFromGame</url-pattern>
+        <url-pattern>/game/RemoveFromGame</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>QuitGameServlet</servlet-name>
-        <url-pattern>/NinaRow/game/QuitGame</url-pattern>
+        <url-pattern>/game/QuitGame</url-pattern>
     </servlet-mapping>
 </web-app>

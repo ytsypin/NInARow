@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="/common/jquery-2.0.3.min.js"></script>
+    <script src="/common/context-path-helper.js"></script>
+    <link rel="stylesheet" href="/common/bootstrap.min.css">
+
+    <link rel="stylesheet" href="/signup.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>NinaRow</title>
+
+    <!-- Link the Bootstrap (from twitter) CSS framework in order to use its classes-->
+    <link rel="stylesheet" href="/common/bootstrap.min.css">
+
+    <!-- Link jQuery JavaScript library in order to use the $ (jQuery) method-->
+    <!-- <script src="common/jquery-2.0.3.min.js"></script>-->
+    <!-- and\or any other scripts you might need to operate the JSP file behind the scene once it arrives to the client-->
+</head>
+<body class="body">
+<div class="main">
+    <div class="wrapper">
+        <h1 class="welcomeSpan">Welcome to NinaRow!</h1>
+        <br>
+        <form id="usernameForm" mtehod="GET" action="/NinaRow/pages/signup/login">
+            <div>
+                <h4>Enter your desired username:</h4>
+                <input id="usernameInput" type="text" name="username">
+            </div>
+            <br>
+            <div>
+                <span>Are You Human?</span>
+                <input name="isHuman" type="checkbox">
+            </div>
+            <input type="submit" value="Login">
+        </form>
+        <span class="errorSpan">Error logging in! Please enter a unique username!</span>
+    </div>
+</div>
+</body>
+</html>
