@@ -1,5 +1,6 @@
 package servlets;
 
+import constants.Constants;
 import constants.ServletUtils;
 import com.google.gson.Gson;
 import general.UserManager;
@@ -16,7 +17,9 @@ public class UsernameServlet extends HttpServlet {
             throws ServletException, IOException{
 
         response.setContentType("application/json");
-        String username = (String)request.getSession(true).getAttribute("username");
+
+        String username = (String)request.getSession(false).getAttribute(Constants.USERNAME);
+
         UserManager userManager = ServletUtils.getUserManager(getServletContext());
         boolean isHuman;
 
@@ -24,9 +27,8 @@ public class UsernameServlet extends HttpServlet {
             response.sendRedirect("/index.html");
         }
 
-        synchronized (this){
-            isHuman = userManager.isUserHuman(username);
-        }
+        isHuman = userManager.isUserHuman(username);
+
         ParticipantInformation info = new ParticipantInformation(username, isHuman);
 
         Gson gson = new Gson();

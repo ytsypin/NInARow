@@ -36,11 +36,12 @@ public class LoginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+
         String usernameFromSession = SessionUtils.getUsername(request);
 
         UserManager userManager = ServletUtils.getUserManager(getServletContext());
 
-        if (usernameFromSession == null) {
+        if (!userManager.containsPerson(usernameFromSession)) {
             //user is not logged in yet
             String usernameFromParameter = request.getParameter(USERNAME);
             if (usernameFromParameter == null) {
@@ -80,7 +81,6 @@ public class LoginServlet extends HttpServlet {
                         // http://timjansen.github.io/jarfiller/guide/servlet25/requestdispatcher.xhtml
                         getServletContext().getRequestDispatcher(LOGIN_ERROR_URL).forward(request, response);
                     } else {
-
 
                         //add the new user to the users list
                         userManager.addUser(newPlayer);

@@ -12,7 +12,6 @@ public class UserManager {
     }
 
     public synchronized void addUser(Participant user) {
-
         System.out.println("Adding user " + user);
         usersMap.put(user.getName(), user);
     }
@@ -34,4 +33,8 @@ public class UserManager {
     }
 
     public Participant getParticipant(String username){ return usersMap.get(username); }
+
+    public boolean containsPerson(String usernameFromSession) {
+        return usersMap.get(usernameFromSession) != null;
+    }
 }
