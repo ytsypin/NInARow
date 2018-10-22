@@ -66,7 +66,7 @@ public class LoadGameServlet extends HttpServlet {
             String uploader = SessionUtils.getUsername(request);
 
             if (uploader == null) {
-                response.sendRedirect("/index.html");
+                response.sendRedirect("/NinaRow/index.html");
             }
 
 

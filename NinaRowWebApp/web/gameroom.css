@@ -150,11 +150,11 @@ td:hover{
     width: 32px;
     height: 32px;
     border: 0;
-    background: url(/common/images/pre-hover.png) no-repeat;
+    background: url(/NinaRow/common/images/pre-hover.png) no-repeat;
     background-size: 100%;
 }
 
 .moveButton:hover{
-    background: url(/common/images/hover.png) no-repeat;
+    background: url(/NinaRow/common/images/hover.png) no-repeat;
     background-size: 100%;
 }

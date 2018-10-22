@@ -4,7 +4,7 @@ var GAME_LIST_URL = "/NinaRow/gameList";
 var USERNAME_URL = "/NinaRow/username";
 var LOGOUT_URL = "/NinaRow/logout";
 var JOIN_GAME_URL = "/NinaRow/joinGame";
-var GAME_ROOM_URL = "/gameroom.html";
+var GAME_ROOM_URL = "/NinaRow/gameroom.html";
 
 
 function logoutClicked(){
@@ -16,7 +16,7 @@ function logoutClicked(){
 }
 
 function redirectToIndexPage(){
-    window.location.href= "index.html";
+    window.location.href= "/NinaRow/index.html";
 }
 
 

@@ -16,8 +16,8 @@ import java.io.IOException;
 public class JoinGameServlet extends HttpServlet {
     private final Object lockObject = new Object();
 
-    private final String GAME_ROOM_URL = "/gameroom.html";
-    private final String CHATROOM_URL = "/chatroom.html";
+    private final String GAME_ROOM_URL = "/NinaRow/gameroom.html";
+    private final String CHATROOM_URL = "/NinaRow/chatroom.html";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException{

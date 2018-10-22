@@ -8,7 +8,7 @@ var POPOUT_MOVE_URL = "/NinaRow/game/PopoutMove";
 var REMOVE_FROM_GAME_URL = "/NinaRow/game/RemoveFromGame";
 var QUIT_GAME_URL = "/NinaRow/game/QuitGame";
 
-var WAITING_ROOM = "/waitingroom.html";
+var WAITING_ROOM = "/NinaRow/waitingroom.html";
 
 var REDIRECT_TIMEOUT = 2000;
 

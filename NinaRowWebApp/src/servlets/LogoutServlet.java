@@ -19,7 +19,7 @@ public class LogoutServlet extends HttpServlet {
 
         userManager.removeUser(username);
 
-        response.sendRedirect("/index.html");
+        response.sendRedirect("/NinaRow/index.html");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

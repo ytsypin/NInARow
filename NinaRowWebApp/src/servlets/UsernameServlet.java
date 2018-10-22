@@ -24,7 +24,7 @@ public class UsernameServlet extends HttpServlet {
         boolean isHuman;
 
         if(username == null){
-            response.sendRedirect("/index.html");
+            response.sendRedirect("/NinaRow/index.html");
         }
 
         isHuman = userManager.isUserHuman(username);
